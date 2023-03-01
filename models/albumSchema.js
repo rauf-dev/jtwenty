@@ -1,17 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-// const albumImagesSchema = new Schema({
-//   albumImages: [
-//     {
-//       asset_id: String,
-//       public_id: String,
-//       url: String,
-//       secure_url: String,
-//     },
-//   ],
-// });
-
 const AlbumSchema = new Schema({
   albumName: {
     type: String,
@@ -23,15 +12,30 @@ const AlbumSchema = new Schema({
     required: true,
     lowercase: true,
   },
-  // albumImages: [albumImagesSchema],
+
   albumImages: [
     {
       asset_id: String,
       public_id: String,
       url: String,
       secure_url: String,
-    }
-  ]
+    },
+  ],
 });
 
-module.exports = mongoose.model('album', AlbumSchema);
+AlbumSchema.virtual('allImages').get(function () {
+  return this.albumImages.map((image) => {
+    return{
+      asset_id: image.asset_id,
+      public_id: image.public_id,
+      url: image.url,
+      secure_url: image.secure_url,
+      _id: image._id
+    } 
+  });
+});
+
+AlbumSchema.set('toJSON', { virtuals: true });
+
+module.exports = mongoose.model('Album', AlbumSchema);
+
