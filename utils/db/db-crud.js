@@ -37,11 +37,11 @@ async function saveNewDbAlbum(data) {
 async function getAllDbAlbums() {
   try {
     const albumsPathCount = await Album.aggregate([
-      { $project: { albumName: 1, albumPath: 1, albumImages: 1 } }, // projects only albumName, albumPath and albumImages
+      { $project: { albumName: 1, albumPath: 1, albumImages: 1, createdAt: 1 } }, // projects only albumName, albumPath and albumImages
       { $addFields: { imageCount: { $size: { $ifNull: ['$albumImages', []] } } } }, // add a new field 'imageCount' to the document and set it to the size of the 'albumImages' array or 0 if it's null
       { $unwind: { path: '$albumImages', preserveNullAndEmptyArrays: true } }, // unwinds the array, preserving null and empty arrays
       { $group: { _id: '$_id', albumName: { $first: '$albumName' }, albumPath: { $first: '$albumPath' }, count: { $sum: '$imageCount' } } }, // grouping
-      { $project: { _id: '$_id', albumName: 1, count: 1, albumPath: 1 } }, // projects only _id, albumName, albumPath and count
+      { $project: { _id: '$_id', albumName: 1, count: 1, albumPath: 1, createdAt: 1 } }, // projects only _id, albumName, albumPath and count
     ]);
     return albumsPathCount;
   } catch (error) {
@@ -162,7 +162,7 @@ async function deleteImageFromAlbum(albumId, imageId) {
     console.log(`delImage result is ${deleteImage}`);
     deleteSuccess = true;
 
-    return {deleteImage, deleteSuccess};
+    return { deleteImage, deleteSuccess };
   } catch (error) {
     console.log(error);
     console.log(error.message);
