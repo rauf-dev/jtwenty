@@ -1,0 +1,12 @@
+/* @import url(https://fonts.bunny.net/css?family=zen-dots:400); */
+@import url(https://fonts.bunny.net/css?family=bangers:400);
+
+body {
+  /* font-family: 'Zen Dots', display; */
+  font-family: 'Bangers', display;
+  font-size: 24px;
+  color: #6e6c6c;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+}
