@@ -26,15 +26,17 @@ const renameAlbumNameRoute = require('./routes/renameAlbumNameRoute.js');
 const addImageToDbRoute = require('./routes/addImageToDbRoute.js');
 const albumImagesRoute = require('./routes/albumImagesRoute.js');
 const deleteImageRoute = require('./routes/deleteImageRoute.js');
+const createNewAlbumPageRoute = require('./routes/createNewAlbumPageRoute.js');
 
 // Import validation middleware
 const validateBody = require('./utils/validation/validation-middleware.js');
 
 // Import validation schemas
-const {valNewAlbumSchema, valDeleteAlbumSchema, valRenameAlbumSchema} = require('./utils/validation/validationSchema.js');
+const { valNewAlbumSchema, valDeleteAlbumSchema, valRenameAlbumSchema } = require('./utils/validation/validationSchema.js');
 
 // Application Routes
 app.use('/', landingPageRoute); // Home- start page
+app.use('/newalbumpage', createNewAlbumPageRoute);
 app.use('/newalbum', validateBody(valNewAlbumSchema), createNewAlbumRoute);
 app.use('/deletealbum', deleteAlbumRoute);
 app.use('/renameAlbum', validateBody(valRenameAlbumSchema), renameAlbumNameRoute);

@@ -1,0 +1,26 @@
+<div class="container col-xl-10 col-xxl-8 px-4">
+    <div class="custom-border-color text-bg-light mx-auto px-3 py-3">
+      <div class="p-1 container py-3 px-4 px-md-5">
+        <h5 class="fw-bold pb-2 border-bottom">Albums</h5>
+      </div>
+      <div
+        class="mb-5 d-flex flex-wrap justify-content-center justify-content-md-start px-4 px-md-5"
+      >
+        <% for( let index = 0; index < allAlbums.length; index++ )
+        { %>
+        <div class="p-1">
+          <a
+            href="/<%= allAlbums[index].albumPath %> "
+            class="btn btn-light text-capitalize custom-border-color"
+            ><%= allAlbums[index].albumName %> <% if
+            (allAlbums[index].count > 0) { %>
+            <span class="badge bg-dark rounded-pill"
+              ><%= allAlbums[index].count %></span
+            >
+            <% } %></a
+          >
+        </div>
+        <% } %>
+      </div>
+    </div>
+  </div>

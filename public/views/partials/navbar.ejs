@@ -1,0 +1,33 @@
+<nav class="navbar navbar-dark bg-dark fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">jtwenty</a>
+    <!-- title below is inserted by masonryGridLayoutAndPageTitle.js -->
+    <h4 id="title" class="text-capitalize text-bg-dark pt-2"></h4>
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">jtwenty</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+
+      <div class="offcanvas-body">
+        <a class="btn btn-primary btn-sm w-100" href="/create-new-album" role="button">Create new album</a>
+        <hr />
+        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+          <% for( let index = 0; index < allAlbums.length; index++ ) { %>
+          <li class="nav-item">
+            <a class="nav-link text-capitalize" aria-current="page" href="/<%= allAlbums[index].albumPath %> "
+              ><%= allAlbums[index].albumName %> <% if (allAlbums[index].count > 0) { %>
+              <span class="badge text-bg-light rounded-pill warn-before-delete"><%= allAlbums[index].count %> </span>
+              <% } %>
+            </a>
+          </li>
+          <% } %>
+        </ul>
+       
+      </div>
+    </div>
+  </div>
+</nav>

@@ -2,6 +2,10 @@ const express = require('express');
 const router = express.Router();
 const { saveNewDbAlbum, checkIfDbAlbumNameExists } = require('../utils/db/db-crud.js');
 
+router.get('/', (req, res) => {
+  res.render('new-album-page', { title: 'Create New Album' });
+});
+
 router.post('/', async (req, res) => {
   //validate req.body is already done in middleware
 

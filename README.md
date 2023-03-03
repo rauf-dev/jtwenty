@@ -25,12 +25,14 @@ my albums 3
 
 ## DB and Cloudinary CRUDS Combined
 ### NAVBAR (All pages)
-- [ ] GET All Album names, path and count of images inside
-- [ ]  --> POST Save New Album Name
-  - [ ]  Validata name and path from front end
-  - [ ]  Function to check if album name exists
-- [ ]  POST Delete Album
-  - [ ]  Validate id
+Create New Album
+- [ ]  Enter album name in front end
+  - [ ]  Verify if name already exists in DB
+  - [ ]  Create folder in Cloudinary
+  - [ ]  Use Cld response to save album name in DB
+- [ ]  Redirect to view album page
+
+
 
 ### View Album Page
 - [ ]  GET All Images in Album
@@ -40,4 +42,5 @@ my albums 3
   - [ ]  Validate name
 
 ### Upload Images Page
-- [ ]  POST Add Images to Album
+- [ ]  Cloudinary Upload Widget to upload one image
+- [ ]  Use response data to save image data to DB
