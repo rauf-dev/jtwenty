@@ -38,12 +38,3 @@ router.post('/', async (req, res) => {
 });
 
 module.exports = router;
-
-// {
-//   success: true,
-//   path: 'jtwenty_01/my first album',
-//   name: 'my first album',
-//   rate_limit_allowed: 500,
-//   rate_limit_reset_at: 2023-03-08T15:00:00.000Z,
-//   rate_limit_remaining: 499
-// }
