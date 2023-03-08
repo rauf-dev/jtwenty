@@ -92,16 +92,19 @@ async function deleteDbAlbum(data) {
 }
   */
 //##############################################################################
+/**
+ * @description Check if albumName already exists in db
+ * @param {*} data album name to check
+ * @returns {Object} _id of album if exists, otherwise null
+ */
 
 async function checkIfDbAlbumNameExists(data) {
+  console.log('in checkIfDbAlbumNameExists');
+  console.log(data);
   try {
-    await Album.exists({ albumName: data }, (err, result) => {
-      if (err) {
-        return err; // returns null or undefined
-      } else {
-        return result; // returns id of the album that exists
-      }
-    });
+    const albumNameExistsInDB = await Album.exists({ albumName: data });
+    console.log('albumNameExistsInDB', albumNameExistsInDB);
+    return albumNameExistsInDB; 
   } catch (error) {
     console.log('catching error in checkIfDbAlbumNameExists');
     return error.message;

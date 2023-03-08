@@ -7,7 +7,7 @@ function validateBody(schema) {
       req.body = validatedBody;
       next();
     } catch (error) {
-      res.status(400).json({ error: error.message });
+      res.json({ error: error.message });
     }
   };
 }

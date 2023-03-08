@@ -13,7 +13,6 @@ formAlbumName.addEventListener('submit', handleFormSubmit);
  * @param {SubmitEvent} event
  */
 async function handleFormSubmit(event) {
-  console.log('running');
   event.preventDefault();
 
   const form = event.currentTarget;
@@ -21,15 +20,12 @@ async function handleFormSubmit(event) {
 
   try {
     const formData = new FormData(form);
-    console.log(formData);
 
-    // makes a POST request to backend route "/create-new-album"
+    // makes a POST request to backend route "/newalbum"
     // backend tries to create new folder in cloudinary "create-folder" API
     // backend gets the reply from cloudinary "create-folder" API
     // reply is returned as responseData
     const responseData = await postFormDataAsJson({ url, formData });
-    console.log(typeof(responseData));
-    console.log(responseData);
 
     // failed responseData is:
     // foldername: "Amsterdam"
@@ -47,10 +43,8 @@ async function handleFormSubmit(event) {
     if (responseData.success) {
       const newAlbumName = responseData.name;
       const path = responseData.path;
-      console.log(newAlbumName);
       showSuccessMessageAndNextButton(newAlbumName, path);//!send all responseData?
     } else {
-      console.log(responseData.message);
       showErrorMessage(responseData);
     }
   } catch (error) {
@@ -120,7 +114,7 @@ function showSuccessMessageAndNextButton(albumName, path) {
 function showErrorMessage(responseData) {
   console.log('in showErrorMessage function');
   const message = document.getElementById('resultsMessage'); // to be defined
-  const errorMessage = `Error creating "${responseData.foldername}". ${responseData.message}`;
+  const errorMessage = responseData.error;
 
   message.textContent = errorMessage;
   message.className += ' text-danger';

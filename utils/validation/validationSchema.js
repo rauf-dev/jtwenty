@@ -1,6 +1,10 @@
 const yup = require('yup');
 const mongoose = require('mongoose');
 
+const valNewAlbumNameSchema = yup.object().shape({
+  albumName: yup.string().required().min(3).max(25),
+});
+
 const valNewAlbumSchema = yup.object().shape({
   albumName: yup.string().required().min(1).max(25),
   albumPath: yup.string().required().min(1).max(25),
@@ -19,4 +23,4 @@ const valRenameAlbumSchema = yup.object().shape({
   newAlbumName: yup.string().required().min(1).max(25),
 });
 
-module.exports = { valNewAlbumSchema, valDeleteAlbumSchema, valRenameAlbumSchema };
+module.exports = { valNewAlbumNameSchema, valNewAlbumSchema, valDeleteAlbumSchema, valRenameAlbumSchema };

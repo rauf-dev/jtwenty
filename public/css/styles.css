@@ -1,5 +1,5 @@
 /* @import url(https://fonts.bunny.net/css?family=zen-dots:400); */
-@import url(https://fonts.bunny.net/css?family=bangers:400);
+/* @import url(https://fonts.bunny.net/css?family=bangers:400); */
 
 
 * {
@@ -12,7 +12,7 @@
   }
   
   body {
-    font-family: 'Bangers', display;
+    /* font-family: 'Bangers', display; */
   }
   main {
     margin-top: 0.2rem;
