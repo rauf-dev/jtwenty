@@ -26,26 +26,26 @@ async function handleFormSubmit(event) {
     // backend gets the reply from cloudinary "create-folder" API
     // reply is returned as responseData
     const responseData = await postFormDataAsJson({ url, formData });
-
+    console.log('responseData is: ', responseData);
     // failed responseData is:
     // foldername: "Amsterdam"
     // message: "A folder with same name already exists"
     // success: false
 
-    // success responseData is:
-    // name: "2045"
-    // path: "samples/2045"
-    // rate_limit_allowed: 500
-    // rate_limit_remaining: 477
-    // rate_limit_reset_at: "2023-01-10T20:00:00.000Z"
-    // success: true
+    // albumName: 'my nninenth album',
+    // albumPath: 'jtwenty_01/my nninenth album',
+    // _id: new ObjectId("6408a05948a8d59d195e695d"),
+    // createdAt: 2023-03-08T14:48:57.574Z,
+    // albumImages: [],
+    // __v: 0
 
-    if (responseData.success) {
-      const newAlbumName = responseData.name;
-      const path = responseData.path;
-      showSuccessMessageAndNextButton(newAlbumName, path);//!send all responseData?
-    } else {
+    if (responseData.error) {
       showErrorMessage(responseData);
+      return;
+    } else {
+      const newAlbumName = responseData.savedAlbum.albumName;
+      const path = responseData.savedAlbum.albumPath;
+      showSuccessMessageAndNextButton(newAlbumName, path); //!send all responseData?
     }
   } catch (error) {
     console.error(error);
@@ -92,7 +92,8 @@ function showSuccessMessageAndNextButton(albumName, path) {
   const createNewAlbumButton = document.getElementById('createNewAlbumButton'); // to be hidden
   const viewNewAlbumButton = document.getElementById('viewNewAlbumButton'); // href url to be added
   const viewNewAlbumButtonDIV = document.getElementById('viewNewAlbumButtonDIV'); // to be un-hidden
-  // const testDiv = document.getElementById('testDiv')
+  const albumNameInput = document.getElementById('albumName'); // to be disabled
+  const hintField = document.getElementById('hint'); // to be hidden
 
   const message = document.getElementById('resultsMessage'); // to be defined
   const successMessage = `Album ${albumName} created.`;
@@ -104,11 +105,11 @@ function showSuccessMessageAndNextButton(albumName, path) {
   viewNewAlbumButton.textContent = `Add images to ${albumName}`;
   viewNewAlbumButton.href = `/${path}`;
 
-  document.getElementById('albumname').disabled = true;
+  hintField.style.display = 'none';
+  albumNameInput.disabled = true;
   createNewAlbumButton.style.display = 'none';
 
   // testDiv.innerHTML = '<h6>different heading</h6><p>and different paragraph</p>'
-
 }
 
 function showErrorMessage(responseData) {
