@@ -34,7 +34,7 @@ router.post('/', async (req, res) => {
   const savedAlbum = await saveNewDbAlbum({albumName:cldFolderResponse.name, albumPath:cldFolderResponse.path});
   console.log('saveNewDbAlbum done: ', savedAlbum);
   console.log('savedAlbum: ', savedAlbum);
-  res.json({ savedAlbum });
+  res.json({ savedAlbum }); // change to render view album page
 });
 
 module.exports = router;

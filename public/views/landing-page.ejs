@@ -4,11 +4,14 @@
     <%- include('partials/head-meta-defaults') %> <%- include('partials/head-links-defaults') %>
     <title>2022</title>
     <%- include('partials/head-scripts-defaults') %> <%- include('partials/head-scripts-bootstrap-icons') %>
+    <script defer src="./js/confirmDeleteAlbumModal.js"></script>
   </head>
 
   <body>
     <%- include('partials/navbar') %>
     <main>
+      <%- include ('partials/modal-confirm-delete-album') %>
+
       <div class="container col-xl-10 col-xxl-8 px-4 py-5">
         <div class="row align-items-center justify-content-center g-5 py-5">
           <!-- Landing Page Hero -->
@@ -47,7 +50,6 @@
                 <a class="w-100 btn btn-lg btn-success d-block" id="viewNewAlbumButton" href="" role="button">Link</a>
               </div>
             </form>
-            
           </div>
         </div>
       </div>
@@ -57,5 +59,25 @@
 
     <%- include('partials/footer') %> <%- include('partials/body-scripts-bootstrap') %>
     <script src="/js/createNewAlbum.js"></script>
+    <!-- <script>
+      const deleteAlbumModal = document.getElementById('delete-album-modal');
+      deleteAlbumModal.addEventListener('show.bs.modal', (event) => {
+        // Button that triggered the modal
+        const button = event.relatedTarget;
+        // Extract info from data-bs-* attributes
+        const albumName = button.getAttribute('data-bs-albumname');
+
+        // Update the modal's content.
+        const modalTitle = deleteAlbumModal.querySelector('#insert-modal-album-name');
+        const modalBodyInput = deleteAlbumModal.querySelector('#insert-modal-body-text');
+
+        modalTitle.textContent = `Confirm Delete ${albumName}`;
+        modalBodyInput.innerHTML = `Are you sure you want to <span class="strong">delete ${albumName} and all images inside it</span>? This action cannot be undone.`;
+      });
+    </script> -->
+
+    Note that I've commented out the AJAX request since it's not clear what it's supposed to do. If you need to make an AJAX request, you can use the
+    fetch API as shown in the commented code block. Rauf Lieberg Wonderful! Thanks! You're welcome! Don't hesitate to ask if you have any more
+    questions.
   </body>
 </html>

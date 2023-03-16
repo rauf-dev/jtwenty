@@ -1,94 +1,118 @@
 /* @import url(https://fonts.bunny.net/css?family=zen-dots:400); */
 /* @import url(https://fonts.bunny.net/css?family=bangers:400); */
 
-
 * {
-    box-sizing: border-box;
-  }
-  
-  /* force scrollbar */
-  html {
-    overflow-y: scroll;
-  }
-  
-  body {
-    /* font-family: 'Bangers', display; */
-  }
-  main {
-    margin-top: 0.2rem;
-  }
-  
-  /* ---- grid ---- */
-  
-  .grid {
-    background: #ddd;
-  }
-  
-  /* clear fix */
-  .grid:after {
-    content: '';
-    display: block;
-    clear: both;
-  }
-  
-  /* ---- .grid-item ---- */
-  
+  box-sizing: border-box;
+}
+
+/* force scrollbar */
+html {
+  overflow-y: scroll;
+}
+
+body {
+  /* font-family: 'Bangers', display; */
+}
+main {
+  margin-top: 0.2rem;
+}
+
+/* ---- grid ---- */
+
+.grid {
+  background: #ddd;
+}
+
+/* clear fix */
+.grid:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+/* ---- .grid-item ---- */
+
+.grid-sizer,
+.grid-item {
+  width: 33.333%;
+}
+@media (max-width: 500px) {
   .grid-sizer,
   .grid-item {
-    width: 33.333%;
+    width: 100%;
   }
-  @media (max-width: 500px) {
-    .grid-sizer,
-    .grid-item {
-      width: 100%;
-    }
-  }
-  @media (max-width: 800px) {
-    .grid-sizer,
-    .grid-item {
-      width: 50%;
-    }
-  }
-  
+}
+@media (max-width: 800px) {
+  .grid-sizer,
   .grid-item {
-    float: left;
+    width: 50%;
   }
-  
-  .grid-item img {
-    display: block;
-    max-width: 100%;
-  
-    /* the frame around each image */
-    border: 2px solid #fff;
+}
+
+.grid-item {
+  float: left;
+}
+
+.grid-item img {
+  display: block;
+  max-width: 100%;
+
+  /* the frame around each image */
+  border: 2px solid #fff;
+}
+
+main {
+  min-height: 95vh;
+}
+
+.custom-card-image {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.custom-card-image-button {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.custom-border-color {
+  /* border-color: #dee2e6; */
+  border-radius: 0.5rem;
+  border: 1px solid #dee2e6;
+}
+
+.hidden {
+  display: none;
+}
+
+.danger-font {
+  color: rgb(167, 60, 60);
+}
+
+.spacer {
+  margin-top: 60px;
+}
+
+.separator-navlinks-button {
+  margin-bottom: 0;
+  margin: 1.2rem 0 0.2rem 0;
+}
+.separator-navlinks {
+  margin-top: 0.2rem;
+  margin-bottom: 0.2rem;
+}
+.strong{
+  font-weight: 600;
+  font-style: italic;
+}
+
+@keyframes deleteAlbumAnimation {
+  0% {
+    transform: scale(1);
+    opacity: 1;
   }
-  
-  main {
-    min-height: 95vh;
+  100% {
+    transform: scale(0);
+    opacity: 0;
   }
-  
-  .custom-card-image {
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-  }
-  .custom-card-image-button {
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-  }
-  
-  .custom-border-color {
-    /* border-color: #dee2e6; */
-    border-radius: 0.5rem;
-    border: 1px solid #dee2e6;
-  }
-  
-  .hidden {
-    display: none;
-  }
-  
-  .danger-font{
-    color: rgb(167, 60, 60);
-  }
-  
-  .spacer{
-    margin-top: 60px;
-  }
+}
+
