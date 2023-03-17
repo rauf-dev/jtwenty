@@ -14,43 +14,72 @@
       </div>
 
       <div class="offcanvas-body">
-        <a class="btn btn-primary btn-sm w-100" href="/create-new-album" role="button">Create new album</a>
+        <div class="dropdown my-3">
+          <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+            Create New Album
+          </button>
+          <!-- This form is from the partial "form-create-new-album" but cannot insert as partial here! -->
+          <form id="formAlbumName" action="http://localhost:3000/newalbum" class="dropdown-menu p-4 p-md-5 border rounded-3 bg-light">
+            <div class="form-floating">
+              <input type="text" class="form-control" id="albumName" name="albumName" />
+              <label for="albumName">Enter album name</label>
+            </div>
+            <div class="form-floating mb-3 px-2 pb-2 text-center">
+              <div class="form-floating mb-3 px-2 text-center" id="resultsDiv">
+                <p id="resultsMessage">
+                  <!-- <small id="resultsMessage"></small> -->
+                </p>
+              </div>
+              <p id="hint">
+                <small>Hint<i class="fa-regular fa-face-smile-wink"></i> Duplicates not allowed, see existing albums below.</small>
+              </p>
+            </div>
 
-        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-          <% for( let index = 0; index < allAlbums.length; index++ ) { %>
-          <li class="nav-item d-flex align-items-center border-top border-bottom" id="<%= allAlbums[index]._id %>">
-            <div class="navlist-albumname">
-              <a class="nav-link text-capitalize px-2" aria-current="page" href="/<%= allAlbums[index].albumPath %> "
-                ><%= allAlbums[index].albumName %>
-              </a>
+            <div class="form-floating mb-3">
+              <button class="w-100 btn btn-lg btn-primary" id="createNewAlbumButton" type="submit">Create New Album</button>
             </div>
-            <div class="navlist-album-count">
-              <% if (allAlbums[index].count > 0) { %>
-              <span class="badge text-bg-light rounded-pill warn-before-delete"><%= allAlbums[index].count %> </span>
-              <% } %>
+            <div class="form-floating mb-3 hidden" id="viewNewAlbumButtonDIV">
+              <a class="w-100 btn btn-lg btn-success d-block" id="viewNewAlbumButton" href="" role="button">Link</a>
             </div>
-            <div class="navlist-add-images">
-              <a class="addImagesToAlbum px-3" href="/add-images-to-album/<%= allAlbums[index].albumPath %> ">
-                <i class="fa-regular fa-images"></i>
-              </a>
-            </div>
-            <div class="navlist-delete-album">
-              <a
-                class="deleteAlbum px-3"
-                data-bs-toggle="modal"
-                data-bs-albumname="<%= allAlbums[index].albumName %>"
-                data-bs-albumid="<%= allAlbums[index]._id %>"
-                data-bs-target="#delete-album-modal"
-              >
-                <i class="fas fa-trash-alt"></i>
-              </a>
-              <!-- <button type="button" class="btn btn-primary w-20" data-bs-toggle="modal" data-bs-target="#delete-album-modal">
-                Launch demo modal
-              </button> -->
-            </div>
-          </li>
-          <% } %>
-        </ul>
+          </form>
+        </div>
+        <div class="navbar-albums-list">
+          <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+            <% for( let index = 0; index < allAlbums.length; index++ ) { %>
+            <li class="nav-item d-flex align-items-center border-top border-bottom" id="<%= allAlbums[index]._id %>">
+              <div class="navlist-albumname">
+                <a class="nav-link text-capitalize px-2" aria-current="page" href="/<%= allAlbums[index].albumPath %> "
+                  ><%= allAlbums[index].albumName %>
+                </a>
+              </div>
+              <div class="navlist-album-count">
+                <% if (allAlbums[index].count > 0) { %>
+                <span class="badge text-bg-light rounded-pill warn-before-delete"><%= allAlbums[index].count %> </span>
+                <% } %>
+              </div>
+              <div class="navlist-add-images">
+                <a class="addImagesToAlbum px-3" href="/add-images-to-album/<%= allAlbums[index].albumPath %> ">
+                  <i class="fa-regular fa-images"></i>
+                </a>
+              </div>
+              <div class="navlist-delete-album">
+                <a
+                  class="deleteAlbum px-3"
+                  data-bs-toggle="modal"
+                  data-bs-albumname="<%= allAlbums[index].albumName %>"
+                  data-bs-albumid="<%= allAlbums[index]._id %>"
+                  data-bs-target="#delete-album-modal"
+                >
+                  <i class="fas fa-trash-alt"></i>
+                </a>
+                <!-- <button type="button" class="btn btn-primary w-20" data-bs-toggle="modal" data-bs-target="#delete-album-modal">
+           Launch demo modal
+         </button> -->
+              </div>
+            </li>
+            <% } %>
+          </ul>
+        </div>
       </div>
     </div>
   </div>

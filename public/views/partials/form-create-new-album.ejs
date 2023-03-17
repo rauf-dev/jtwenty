@@ -1,0 +1,23 @@
+<form id="formAlbumName" action="http://localhost:3000/newalbum" class="p-4 p-md-5 border rounded-3 bg-light">
+    <div class="form-floating">
+      <input type="text" class="form-control" id="albumName" name="albumName" />
+      <label for="albumName">Enter album name</label>
+    </div>
+    <div class="form-floating mb-3 px-2 pb-2 text-center">
+      <div class="form-floating mb-3 px-2 text-center" id="resultsDiv">
+        <p id="resultsMessage">
+          <!-- <small id="resultsMessage"></small> -->
+        </p>
+      </div>
+      <p id="hint">
+        <small>Hint<i class="fa-regular fa-face-smile-wink"></i> Duplicates not allowed, see existing albums below.</small>
+      </p>
+    </div>
+
+    <div class="form-floating mb-3">
+      <button class="w-100 btn btn-lg btn-primary" id="createNewAlbumButton" type="submit">Create New Album</button>
+    </div>
+    <div class="form-floating mb-3 hidden" id="viewNewAlbumButtonDIV">
+      <a class="w-100 btn btn-lg btn-success d-block" id="viewNewAlbumButton" href="" role="button">Link</a>
+    </div>
+  </form>

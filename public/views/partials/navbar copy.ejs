@@ -1,0 +1,57 @@
+<nav class="navbar navbar-dark bg-dark fixed-top">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <!-- title below is inserted by masonryGridLayoutAndPageTitle.js -->
+    <h4 id="title" class="text-capitalize text-bg-dark pt-2"></h4>
+    <a class="navbar-brand" href="/">jtwenty</a>
+
+    <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+      <div class="offcanvas-header">
+        <h4 class="offcanvas-title" id="offcanvasDarkNavbarLabel">jtwenty</h4>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+
+      <div class="offcanvas-body">
+        <a class="btn btn-primary btn-sm w-100" href="/create-new-album" role="button">Create new album</a>
+
+        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+          <% for( let index = 0; index < allAlbums.length; index++ ) { %>
+          <li class="nav-item d-flex align-items-center border-top border-bottom" id="<%= allAlbums[index]._id %>">
+            <div class="navlist-albumname">
+              <a class="nav-link text-capitalize px-2" aria-current="page" href="/<%= allAlbums[index].albumPath %> "
+                ><%= allAlbums[index].albumName %>
+              </a>
+            </div>
+            <div class="navlist-album-count">
+              <% if (allAlbums[index].count > 0) { %>
+              <span class="badge text-bg-light rounded-pill warn-before-delete"><%= allAlbums[index].count %> </span>
+              <% } %>
+            </div>
+            <div class="navlist-add-images">
+              <a class="addImagesToAlbum px-3" href="/add-images-to-album/<%= allAlbums[index].albumPath %> ">
+                <i class="fa-regular fa-images"></i>
+              </a>
+            </div>
+            <div class="navlist-delete-album">
+              <a
+                class="deleteAlbum px-3"
+                data-bs-toggle="modal"
+                data-bs-albumname="<%= allAlbums[index].albumName %>"
+                data-bs-albumid="<%= allAlbums[index]._id %>"
+                data-bs-target="#delete-album-modal"
+              >
+                <i class="fas fa-trash-alt"></i>
+              </a>
+              <!-- <button type="button" class="btn btn-primary w-20" data-bs-toggle="modal" data-bs-target="#delete-album-modal">
+                Launch demo modal
+              </button> -->
+            </div>
+          </li>
+          <% } %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
