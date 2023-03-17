@@ -27,6 +27,7 @@ const addImageToDbRoute = require('./routes/addImageToDbRoute.js');
 const albumImagesRoute = require('./routes/albumImagesRoute.js');
 const deleteImageRoute = require('./routes/deleteImageRoute.js');
 const createNewAlbumPageRoute = require('./routes/createNewAlbumPageRoute.js');
+const viewAlbumPageRoute = require('./routes/viewAlbumPageRoute.js');
 
 // Import validation middleware
 const validateBody = require('./utils/validation/validation-middleware.js');
@@ -43,5 +44,6 @@ app.use('/renameAlbum', validateBody(valRenameAlbumSchema), renameAlbumNameRoute
 app.use('/uploadimage', addImageToDbRoute);
 app.use('/albumimages', albumImagesRoute);
 app.use('/deleteimage', deleteImageRoute);
+app.use(`/viewalbum`, viewAlbumPageRoute);
 
 app.listen(PORT, () => console.log(`JTWENTY SERVER on port :${PORT}, GOO!!!!!`));

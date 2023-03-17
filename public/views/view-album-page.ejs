@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+  <head>
+    <%- include('partials/head-meta-defaults') %> <%- include('partials/head-links-defaults') %>
+    <title>2022</title>
+    <%- include('partials/head-scripts-defaults') %>
+  </head>
+
+  <body>
+    <%- include('partials/navbar') %>
+    <main>
+      <div class="spacer"></div>
+      <!-- MODAL APPEAR AFTER DELETE ACTION-->
+      <div class="modal fade" id="results-modal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Delete Album</h5>
+            </div>
+            <div class="modal-body">
+              <p id="modalMessage">Text will be inserted here.</p>
+            </div>
+            <div class="modal-footer">
+              <a role="button" class="btn btn-primary" href="/"> Back to start page </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Show if album is empty -->
+
+      <!-- script masonryGridLayout.js will create a masonry grid gallery -->
+      <div class="grid css-margin-top-gallery">
+        <div class="grid-sizer"></div>
+        <% for( let index = 0; index < allAlbums.length ; index++ ) { %>
+        <div class="grid-item">
+          <a href="<%= allAlbums[index].secure_url %> ">
+            <img src="<%= allAlbums[index].secure_url %> " />
+          </a>
+        </div>
+        <% } %>
+      </div>
+
+      <!-- Album Actions Start here -->
+      <%- include('partials/albums-buttons') %>
+
+    </main>
+    <%- include('partials/footer') %>
+    <script src="/js/deleteAlbum.js"></script>
+
+    <!-- cloudinary upload widget -->
+    <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
+
+    <!-- local upload instantiation -->
+    <script src="/js/uploadclientwidget.js" type="text/javascript"></script>
+    <%- include('partials/body-scripts-bootstrap') %> <%- include('partials/body-scripts-page-title') %> <%-
+    include('partials/body-scripts-masonry')%>
+  </body>
+</html>

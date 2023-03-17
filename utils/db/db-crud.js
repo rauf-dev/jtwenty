@@ -145,6 +145,7 @@ async function addNewImageToDbAlbum(albumId, newImageData) {
 //   const images = album.allImages;
 //   return images;
 // }
+//##############################################################################
 
 async function deleteImageFromAlbum(albumId, imageId) {
   try {
@@ -192,6 +193,19 @@ async function deleteImageFromAlbum(albumId, imageId) {
 //   }
 // }
 
+async function getAlbumName(data) {
+  console.log('in getAlbumName');
+  console.log(data);
+  try {
+    const albumName = await Album.findById(data);
+    console.log('albumName', albumName);
+    return albumName.albumName; 
+  } catch (error) {
+    console.log('catching error in getAlbumName');
+    return error.message;
+  }
+}
+
 module.exports = {
   saveNewDbAlbum,
   getAllDbAlbums,
@@ -201,4 +215,5 @@ module.exports = {
   addNewImageToDbAlbum,
   // getImagesInAlbum,
   deleteImageFromAlbum,
+  getAlbumName
 };

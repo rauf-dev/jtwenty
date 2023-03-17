@@ -103,7 +103,7 @@ function showSuccessMessageAndNextButton(albumName, path) {
 
   viewNewAlbumButtonDIV.classList.toggle('hidden');
   viewNewAlbumButton.textContent = `Add images to ${albumName}`;
-  viewNewAlbumButton.href = `/${path}`;
+  viewNewAlbumButton.href = `/viewalbum/${albumName}`;
 
   hintField.style.display = 'none';
   albumNameInput.disabled = true;

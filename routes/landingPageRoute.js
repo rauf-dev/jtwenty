@@ -4,7 +4,7 @@ const { getAllDbAlbums } = require('../utils/db/db-crud.js');
 
 router.get('/', async (req, res) => {
   const allAlbums = await getAllDbAlbums();
-  // res.json({ allAlbums });
+  console.log(allAlbums)
   res.render('landing-page', { allAlbums });
 });
 
