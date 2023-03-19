@@ -39,8 +39,13 @@
               <button class="w-100 btn btn-lg btn-primary" id="createNewAlbumButton" type="submit">Create New Album</button>
             </div>
             <div class="form-floating mb-3 hidden" id="viewNewAlbumButtonDIV">
-              <a class="w-100 btn btn-lg btn-success d-block" id="viewNewAlbumButton" href="" role="button">Link</a>
+              <a class="addImagesToAlbum upload_widget submit w-100 btn btn-lg btn-success d-block" id="upload_widget" role="button">Link</a>
             </div>
+            <div><img id="uploaded" /></div>
+            <div id="dataDiv" data-album-name=""></div>
+            <!-- below is monitored for "success" which triggers page refresh -->
+            <div id="dataDivResults" data-upload-result=""></div>
+            <pre class="data" id="uwdata"></pre>
           </form>
         </div>
         <div class="navbar-albums-list">
@@ -58,8 +63,8 @@
                 <% } %>
               </div>
               <div class="navlist-add-images">
-                <a class="addImagesToAlbum px-3" href="/add-images-to-album/<%= allAlbums[index].albumPath %> ">
-                  <i class="fa-regular fa-images"></i>
+                <a class="upload_widget addImagesToAlbum px-3" data-album-name="<%= allAlbums[index].albumName %>" >
+                  add
                 </a>
               </div>
               <div class="navlist-delete-album">

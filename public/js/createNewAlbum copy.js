@@ -90,11 +90,11 @@ async function postFormDataAsJson({ url, formData }) {
 function showSuccessMessageAndNextButton(albumName, path) {
   console.log('in showSuccessMessageAndNextButton function');
   const createNewAlbumButton = document.getElementById('createNewAlbumButton'); // to be hidden
-  const uploadWidget = document.getElementById('upload_widget'); // href url to be added
+  const viewNewAlbumButton = document.getElementById('viewNewAlbumButton'); // href url to be added
   const viewNewAlbumButtonDIV = document.getElementById('viewNewAlbumButtonDIV'); // to be un-hidden
   const albumNameInput = document.getElementById('albumName'); // to be disabled
   const hintField = document.getElementById('hint'); // to be hidden
-  const dataDiv = document.getElementById('dataDiv'); // albumname will populated into data-album-name attribute
+
   const message = document.getElementById('resultsMessage'); // to be defined
   const successMessage = `Album ${albumName} created.`;
 
@@ -102,9 +102,8 @@ function showSuccessMessageAndNextButton(albumName, path) {
   message.className += ' text-success';
 
   viewNewAlbumButtonDIV.classList.toggle('hidden');
-  uploadWidget.textContent = `Add images to ${albumName}`;
-  dataDiv.setAttribute('data-album-name', albumName);
-  // uploadWidget.href = `/viewalbum/${albumName}`; //! not needed for now
+  viewNewAlbumButton.textContent = `Add images to ${albumName}`;
+  viewNewAlbumButton.href = `/viewalbum/${albumName}`;
 
   hintField.style.display = 'none';
   albumNameInput.disabled = true;

@@ -26,8 +26,7 @@
             </div> -->
           </div>
           <!-- New Album Form -->
-          <div class="col-10 col-sm-8 col-lg-6">
-            <%- include('partials/form-create-new-album') %></div>
+          <div class="col-10 col-sm-8 col-lg-6"><%- include('partials/form-create-new-album') %></div>
         </div>
       </div>
 
@@ -36,25 +35,8 @@
 
     <%- include('partials/footer') %> <%- include('partials/body-scripts-bootstrap') %>
     <script src="/js/createNewAlbum.js"></script>
-    <!-- <script>
-      const deleteAlbumModal = document.getElementById('delete-album-modal');
-      deleteAlbumModal.addEventListener('show.bs.modal', (event) => {
-        // Button that triggered the modal
-        const button = event.relatedTarget;
-        // Extract info from data-bs-* attributes
-        const albumName = button.getAttribute('data-bs-albumname');
-
-        // Update the modal's content.
-        const modalTitle = deleteAlbumModal.querySelector('#insert-modal-album-name');
-        const modalBodyInput = deleteAlbumModal.querySelector('#insert-modal-body-text');
-
-        modalTitle.textContent = `Confirm Delete ${albumName}`;
-        modalBodyInput.innerHTML = `Are you sure you want to <span class="strong">delete ${albumName} and all images inside it</span>? This action cannot be undone.`;
-      });
-    </script> -->
-
-    Note that I've commented out the AJAX request since it's not clear what it's supposed to do. If you need to make an AJAX request, you can use the
-    fetch API as shown in the commented code block. Rauf Lieberg Wonderful! Thanks! You're welcome! Don't hesitate to ask if you have any more
-    questions.
+    <!-- cloudinary upload widget -->
+    <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
+    <script src="/js/uploadclientwidget.js" type="text/javascript"></script>
   </body>
 </html>
