@@ -1,24 +1,12 @@
 // Signed upload using cloudinary widget
 
 const express = require('express');
+const { addNewImageToDbAlbum } = require('../utils/db/db-crud.js')
 const cloudinaryConfig = require('../utils/cloudinary/cloudinaryConfig.js');
 const cldMainFolder = require('../utils/cloudinary/cloudinaryMainFolder.js');
 const getSignature = require('../utils/cloudinary/getSignature.js');
 
 const router = express.Router();
-
-// show signed upload page with upload WIDGET
-// router.get('/upload-widget/:albumName', async (req, res) => {
-//   const albumName = req.params.albumName;
-//   console.log('reading json file');
-//   const jsonFileData = await readJsonFile(); //reads json file
-//   const dataToSend = {
-//     customMessage: 'Upload Widget Page',
-//     navData: jsonFileData,
-//     albumName: albumName,
-//   };
-//   res.render('uploadWidgetPage', { dataToSend });
-// });
 
 // Return signature for upload widget
 router.post('/get-signature-widget', async (req, res) => {
@@ -38,5 +26,36 @@ router.post('/get-signature-widget', async (req, res) => {
     apikey: cloudinaryConfig.api_key,
   });
 });
+
+router.post('/save-image-data', async (req, res) => {
+  console.log('IN ROUTE SAVE-IMAGE-DATA');
+  console.log(req.body);
+
+  // Save image data to database using mongoose, save to albumImages array
+  const albumName = req.body.folder;
+
+  //! To do: Figure out which image fields really need to be saved to DB
+  const image = {
+    public_id: req.body.public_id,
+    format: req.body.format,
+    width: req.body.width,
+    height: req.body.height,
+    bytes: req.body.bytes,
+    resource_type: req.body.resource_type,
+    created_at: req.body.created_at,
+    tags: req.body.tags,
+    url: req.body.url,
+    secure_url: req.body.secure_url,
+    original_filename: req.body.original_filename,
+    folder: req.body.folder,
+  };
+
+  // Find album in database and push image data to albumImages array
+  const savedImageDataToDB = addNewImageToDbAlbum(albumName, image)
+  console.log('Saved image data to DB');
+  console.log(savedImageDataToDB);
+  res.json({ success: true, folder: albumName });
+});
+
 
 module.exports = router;

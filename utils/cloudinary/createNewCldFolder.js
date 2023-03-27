@@ -1,8 +1,9 @@
 const cldMainFolder = require('./cloudinaryMainFolder');
 const cloudinary = require('cloudinary').v2;
-const cloudinaryConfig = require('./cloudinaryConfig');
+// const cloudinaryConfig = require('./cloudinaryConfig');
 
 const createNewCldFolder = async (newAlbumName) => {
+  console.log('in createNewCldFolder');
   try {
     const response = await cloudinary.api.create_folder(
       cldMainFolder + newAlbumName

@@ -1,9 +1,8 @@
 /**
- * This script creates a new folder in cloudinary,
- * when successful DOM item(s) are made visible allowing user to continue with uploading images.
+ * This script initiates the creation of a new folder in cloudinary and database,
+ * when successful, DOM item(s) are made visible allowing user to continue with uploading images.
  **/
 
-// For the fetch() POST request
 const formAlbumName = document.getElementById('formAlbumName');
 formAlbumName.addEventListener('submit', handleFormSubmit);
 
@@ -14,30 +13,21 @@ formAlbumName.addEventListener('submit', handleFormSubmit);
  */
 async function handleFormSubmit(event) {
   event.preventDefault();
+  console.log('handleFormSubmit');
 
   const form = event.currentTarget;
-  const url = form.action;
+  // const url = form.action;
+  const url = new URL('/newalbum', window.location.origin);
+
+  console.log('form is: ', form);
 
   try {
+    // Getting FormData and URL for the fetch() request
     const formData = new FormData(form);
+    console.log('formData is: ', formData);
 
-    // makes a POST request to backend route "/newalbum"
-    // backend tries to create new folder in cloudinary "create-folder" API
-    // backend gets the reply from cloudinary "create-folder" API
-    // reply is returned as responseData
     const responseData = await postFormDataAsJson({ url, formData });
     console.log('responseData is: ', responseData);
-    // failed responseData is:
-    // foldername: "Amsterdam"
-    // message: "A folder with same name already exists"
-    // success: false
-
-    // albumName: 'my nninenth album',
-    // albumPath: 'jtwenty_01/my nninenth album',
-    // _id: new ObjectId("6408a05948a8d59d195e695d"),
-    // createdAt: 2023-03-08T14:48:57.574Z,
-    // albumImages: [],
-    // __v: 0
 
     if (responseData.error) {
       showErrorMessage(responseData);
@@ -62,6 +52,7 @@ async function handleFormSubmit(event) {
  */
 
 async function postFormDataAsJson({ url, formData }) {
+  console.log('postFormDataAsJson');
   const plainFormData = Object.fromEntries(formData.entries());
   const formDataJsonString = JSON.stringify(plainFormData);
 
@@ -90,12 +81,12 @@ async function postFormDataAsJson({ url, formData }) {
 function showSuccessMessageAndNextButton(albumName, path) {
   console.log('in showSuccessMessageAndNextButton function');
   const createNewAlbumButton = document.getElementById('createNewAlbumButton'); // to be hidden
-  const uploadWidget = document.getElementById('upload_widget'); // href url to be added
-  const viewNewAlbumButtonDIV = document.getElementById('viewNewAlbumButtonDIV'); // to be un-hidden
-  const albumNameInput = document.getElementById('albumName'); // to be disabled
+  const uploadWidget = document.getElementById('upload_widget_new_album'); // text content to be added to button
+  const viewNewAlbumButtonDIV = document.getElementById('viewNewAlbumButtonDIV'); // div to be un-hidden
+  const albumNameInput = document.getElementById('albumName'); // input field to be disabled
   const hintField = document.getElementById('hint'); // to be hidden
   const dataDiv = document.getElementById('dataDiv'); // albumname will populated into data-album-name attribute
-  const message = document.getElementById('resultsMessage'); // to be defined
+  const message = document.getElementById('resultsMessage'); // message to be inserted, class name added
   const successMessage = `Album ${albumName} created.`;
 
   message.textContent = successMessage;
@@ -104,13 +95,10 @@ function showSuccessMessageAndNextButton(albumName, path) {
   viewNewAlbumButtonDIV.classList.toggle('hidden');
   uploadWidget.textContent = `Add images to ${albumName}`;
   dataDiv.setAttribute('data-album-name', albumName);
-  // uploadWidget.href = `/viewalbum/${albumName}`; //! not needed for now
 
   hintField.style.display = 'none';
   albumNameInput.disabled = true;
   createNewAlbumButton.style.display = 'none';
-
-  // testDiv.innerHTML = '<h6>different heading</h6><p>and different paragraph</p>'
 }
 
 function showErrorMessage(responseData) {

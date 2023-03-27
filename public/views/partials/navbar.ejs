@@ -19,7 +19,7 @@
             Create New Album
           </button>
           <!-- This form is from the partial "form-create-new-album" but cannot insert as partial here! -->
-          <form id="formAlbumName" action="http://localhost:3000/newalbum" class="dropdown-menu p-4 p-md-5 border rounded-3 bg-light">
+          <form id="formAlbumName" class="dropdown-menu p-4 p-md-5 border rounded-3 bg-light">
             <div class="form-floating">
               <input type="text" class="form-control" id="albumName" name="albumName" />
               <label for="albumName">Enter album name</label>
@@ -39,7 +39,7 @@
               <button class="w-100 btn btn-lg btn-primary" id="createNewAlbumButton" type="submit">Create New Album</button>
             </div>
             <div class="form-floating mb-3 hidden" id="viewNewAlbumButtonDIV">
-              <a class="addImagesToAlbum upload_widget submit w-100 btn btn-lg btn-success d-block" id="upload_widget" role="button">Link</a>
+              <a class="addImagesToAlbum submit w-100 btn btn-lg btn-success d-block" id="upload_widget_new_album" role="button">Link</a>
             </div>
             <div><img id="uploaded" /></div>
             <div id="dataDiv" data-album-name=""></div>
@@ -63,9 +63,7 @@
                 <% } %>
               </div>
               <div class="navlist-add-images">
-                <a class="upload_widget addImagesToAlbum px-3" data-album-name="<%= allAlbums[index].albumName %>" >
-                  add
-                </a>
+                <a class="upload_widget addImagesToAlbum px-3" data-album-name="<%= allAlbums[index].albumName %>"> add </a>
               </div>
               <div class="navlist-delete-album">
                 <a

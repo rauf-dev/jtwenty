@@ -8,6 +8,7 @@ const Album = require('../../models/albumSchema.js');
  * @returns {Object} Saved album object
  */
 async function saveNewDbAlbum(data) {
+  console.log('in saveNewDbAlbum');
   try {
     const newAlbum = new Album(data);
     await newAlbum.save();
@@ -35,6 +36,7 @@ async function saveNewDbAlbum(data) {
  * @returns {Array} Array of objects with _id, albumName, albumPath and count of images per album
  */
 async function getAllDbAlbums() {
+  console.log('in getAllDbAlbums');
   try {
     const albumsPathCount = await Album.aggregate([
       { $project: { albumName: 1, albumPath: 1, albumImages: 1, createdAt: 1 } }, // projects only albumName, albumPath and albumImages
@@ -74,6 +76,7 @@ async function getAllDbAlbums() {
  * @returns
  */
 async function deleteDbAlbum(data) {
+  console.log('in deleteDbAlbum');
   try {
     const deletedAlbum = await Album.deleteOne({ _id: data });
     return deletedAlbum;
@@ -100,7 +103,7 @@ async function deleteDbAlbum(data) {
 
 async function checkIfDbAlbumNameExists(data) {
   console.log('in checkIfDbAlbumNameExists');
-  console.log(data);
+
   try {
     const albumNameExistsInDB = await Album.exists({ albumName: data });
     console.log('albumNameExistsInDB', albumNameExistsInDB);
@@ -114,6 +117,7 @@ async function checkIfDbAlbumNameExists(data) {
 
 // Test rename album name
 async function renameDbAlbumName(albumId, newAlbumName) {
+  console.log('in renameDbAlbumName');
   try {
     const renamed = await Album.updateOne({ _id: albumId }, { albumName: newAlbumName });
     return renamed;
@@ -126,9 +130,10 @@ async function renameDbAlbumName(albumId, newAlbumName) {
 
 // Insert new Image to db
 // Send as content-type application/json, body --> raw (JSON). See data example below
-async function addNewImageToDbAlbum(albumId, newImageData) {
+async function addNewImageToDbAlbum(albumName, newImageData) {
+  console.log('in addNewImageToDbAlbum');
   try {
-    const savedImages = await Album.findOneAndUpdate({ _id: albumId }, { $push: { albumImages: newImageData } }, { new: true, upsert: true });
+    const savedImages = await Album.findOneAndUpdate({ albumName: albumName }, { $push: { albumImages: newImageData } }, { new: true, upsert: true });
     return savedImages;
   } catch (error) {
     console.log(error);
@@ -148,6 +153,7 @@ async function addNewImageToDbAlbum(albumId, newImageData) {
 //##############################################################################
 
 async function deleteImageFromAlbum(albumId, imageId) {
+  console.log('in deleteImageFromAlbum');
   try {
     let deleteSuccess = false;
     // Check if album and image exist
@@ -195,6 +201,7 @@ async function deleteImageFromAlbum(albumId, imageId) {
 
 async function getAlbumName(data) {
   console.log('in getAlbumName');
+
   console.log(data);
   try {
     const albumName = await Album.findById(data);

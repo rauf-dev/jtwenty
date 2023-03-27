@@ -18,6 +18,7 @@ const observer = new IntersectionObserver((entries) => {
   }
 });
 
+
 window.addEventListener('DOMContentLoaded', (event) => {
   const folderName = 'preloading-signature';
   setSignatureOptions(folderName);
@@ -43,12 +44,8 @@ const setSignatureOptions = async (folderName) => {
 
   // Get the signature from the response
   const data = await signatureResponse.json();
-  const options = createOptionsObj(data); // function options should return the options object
-  return options;
-};
 
-// Use signature data to build the options needed to create the widget
-function createOptionsObj(data) {
+  // Use signature data to build the options needed to create the widget
   const options = {
     cloudName: data.cloudname,
     apiKey: data.apikey,
@@ -59,42 +56,36 @@ function createOptionsObj(data) {
   };
   console.log('FE => Options are');
   console.log(options);
-  return options;
-}
 
-const processResults = (error, result) => {
-  if (!error && result && result.event === 'success') {
-    console.log('Upload was successfull, below the result');
-    console.log(result);
-  }
-  if (!error && result && result.event == 'close') {
-    console.log('Widget window closed. Page will refresh and scroll to top');
-    const dataDivResults = document.getElementById('dataDivResults');
-    dataDivResults.dataset.uploadResult = 'success';
-
-    reloadAndScrollToTop();
-    function reloadAndScrollToTop() {
-      location.reload();
-      window.scrollTo(0, 0);
+  const processResults = (error, result) => {
+    if (!error && result && result.event === 'success') {
+      console.log('Upload was successfull, below the result');
+      console.log(result);
     }
-  }
-};
+    if (!error && result && result.event == 'close') {
+      console.log('Widget window closed. Page will refresh and scroll to top');
+      const dataDivResults = document.getElementById('dataDivResults');
+      dataDivResults.dataset.uploadResult = 'success';
 
-const myWidget = window.cloudinary.createUploadWidget(options, processResults);
-document.getElementById('upload_widget').addEventListener('click', () => {
-  const folderName = e.target.dataset.albumName;
-  setSignatureOptions(folderName);
-  myWidget.open();
-});
+      reloadAndScrollToTop();
+      function reloadAndScrollToTop() {
+        location.reload();
+        window.scrollTo(0, 0);
+      }
+    }
+  };
 
-// document.getElementsByClassName('addImagesToAlbum').addEventListener('click', () => myWidget.open(), false);
+  const myWidget = window.cloudinary.createUploadWidget(options, processResults);
+  document.getElementById('upload_widget').addEventListener('click', () => myWidget.open(), false);
+  // document.getElementsByClassName('addImagesToAlbum').addEventListener('click', () => myWidget.open(), false);
 
-// Open the widget from existing albums list
-const widgetTriggersNavList = document.getElementsByClassName('addImagesToAlbum');
-Array.from(widgetTriggersNavList).forEach((element) => {
-  element.addEventListener('click', (e) => {
-    const folderName = e.target.dataset.albumName;
-    setSignatureOptions(folderName);
-    myWidget.open();
+  // Open the widget from existing albums list
+  const widgetTriggersNavList = document.getElementsByClassName('addImagesToAlbum');
+  Array.from(widgetTriggersNavList).forEach((element) => {
+    element.addEventListener('click', (e) => {
+      const folderName = e.target.dataset.albumName;
+      setSignatureOptions(folderName);
+      myWidget.open();
+    });
   });
-});
+};
