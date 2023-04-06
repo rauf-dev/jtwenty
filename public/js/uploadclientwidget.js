@@ -9,7 +9,7 @@ const observer = new IntersectionObserver((entries) => {
     const dataDiv = document.getElementById('dataDiv');
     const folderName = dataDiv.dataset.albumName;
     console.log('FE => IntersectionObserver => folderName is ' + folderName);
-    setSignatureOptions(folderName);
+    getSignature(folderName);
     // Now wait for user to click on the button to add images to album
     // Open the widget from new album button
   } else {
@@ -20,7 +20,7 @@ const observer = new IntersectionObserver((entries) => {
 
 window.addEventListener('DOMContentLoaded', (event) => {
   const folderName = 'preloading-signature';
-  setSignatureOptions(folderName);
+  getSignature(folderName);
   observer.observe(viewNewAlbumButtonDIV);
 });
 
@@ -43,7 +43,7 @@ const setSignatureOptions = async (folderName) => {
 
   // Get the signature from the response
   const data = await signatureResponse.json();
-  const options = createOptionsObj(data); // function options should return the options object
+  const options = createUploadOptions(data); // function options should return the options object
   return options;
 };
 
@@ -80,10 +80,10 @@ const processResults = (error, result) => {
   }
 };
 
-const myWidget = window.cloudinary.createUploadWidget(options, processResults);
+const myWidget = window.cloudinary.createUploadWidget(uploadOptions, processResults);
 document.getElementById('upload_widget').addEventListener('click', () => {
   const folderName = e.target.dataset.albumName;
-  setSignatureOptions(folderName);
+  getSignature(folderName);
   myWidget.open();
 });
 
@@ -94,7 +94,7 @@ const widgetTriggersNavList = document.getElementsByClassName('addImagesToAlbum'
 Array.from(widgetTriggersNavList).forEach((element) => {
   element.addEventListener('click', (e) => {
     const folderName = e.target.dataset.albumName;
-    setSignatureOptions(folderName);
+    getSignature(folderName);
     myWidget.open();
   });
 });

@@ -20,7 +20,7 @@ const observerdataDivResults = new MutationObserver((mutations) => {
     });
 });
 
-const dataDivResults = document.getElementById('dataDivResults');
+// const dataDivResults = document.getElementById('dataDivResults');
 window.addEventListener('load', () => {
     console.log('Observer is observing dataDivResults')
     observerdataDivResults.observe(dataDivResults, { attributes: true });

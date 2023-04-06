@@ -1,18 +1,16 @@
-const viewNewAlbumButtonDIV = document.getElementById('viewNewAlbumButtonDIV'); //to be observed when visible
+const addImagesButtonDIV = document.getElementById('viewNewAlbumButtonDIV'); //to be observed when visible
 const dataDiv = document.getElementById('dataDiv'); //to get the folder name from the dataset attribute
-const widgetTrigger = document.getElementById('upload_widget_new_album'); //to trigger the widget
-let viewNewAlbumButtonDIVisVisible = false;
-let options = {};
+const widgetTriggerFromNewAlbum = document.getElementById('upload_widget_new_album'); //to trigger launch of the widget from new album form
+let addImagesButtonDIVisVisible = false; //flag to indicate if the viewNewAlbumButtonDIV is visible. Is set to visible by a separate script "createNewAlbum.js " after user creates a new album successfully
+let uploadOptions = {}; //will be populated with the options needed to create the widget
+const dataDivResults = document.getElementById('dataDivResults'); // will be populated with the upload success data from widget. This element is monitored by an observer in a separate script
+const widgetTriggerFromExistingAlbums = document.querySelectorAll('.upload_widget');
 
-const setSignatureOptions = async (folderName) => {
-  console.log('FE => UPLOADCLIENTWIDGET');
-
+const getSignature = async (folderName) => {
   // GET SIGNATURE, tell Cloudinary in advance what folder to upload to
-  // The signature is thereafter only valid for requested folder name
-  console.log('FE => GETTING SIGNATURE');
+  // The signature is thereafter only valid for requested folder nam
   const signatureUrl = '/upload/get-signature-widget';
   const signatureData = { uploadToFolder: folderName };
-  console.log('IN FE SUBMIT FUNCTION, getting signature for WIDGET');
   const signatureResponse = await fetch(signatureUrl, {
     method: 'post',
     headers: {
@@ -24,8 +22,8 @@ const setSignatureOptions = async (folderName) => {
 };
 
 // Use signature data to build the options needed to create the widget
-function createOptionsObj(data) {
-  const options = {
+function createUploadOptions(data){
+  return {
     cloudName: data.cloudname,
     apiKey: data.apikey,
     uploadSignatureTimestamp: data.timestamp,
@@ -39,11 +37,9 @@ function createOptionsObj(data) {
     sources: ['local', 'url', 'camera', 'dropbox', 'instagram'],
     maxFileSize: 10000000, // 10MB
   };
-  return options;
-}
+};
 
 const sendImageDataToServer = async (result) => {
-  console.log('FE => sendImageDataToServer');
   const url = '/upload/save-image-data';
   const data = {
     public_id: result.info.public_id,
@@ -57,10 +53,8 @@ const sendImageDataToServer = async (result) => {
     url: result.info.url,
     secure_url: result.info.secure_url,
     original_filename: result.info.original_filename,
-    // folder: result.info.folder,
     folder: result.info.folder.split('/')[1],
   };
-  console.log('FE => Sending image data to server');
 
   const sendData = await fetch(url, {
     method: 'post',
@@ -72,76 +66,142 @@ const sendImageDataToServer = async (result) => {
 
   // get the DB save result from the server
   const responseData = await sendData.json();
-  console.log('FE => Response from server');
-  console.log(responseData);
   return responseData;
 };
 
-
-let successfulUploads = 0;
-let uploadCount = 0;
+let uploadCount = 0; // number of uploads added to queue
+let successCount = 0; // number of successful uploads
+let errorCount = 0; // number of failed uploads
 const processResults = async (error, result) => {
-  console.log(`>>>> Logging all result.events: ${result.event}`);
-  if (error) {
-    console.log(error);
-  }
+
+  console.log(result.event)
+
+  // Upload was added to queue. Increment uploadCount
   if (!error && result && result.event === 'upload-added') {
     uploadCount++;
+    console.log('#############################')
+    console.log('upload added to queue')
+    console.log(`uploadCount: ${uploadCount}`)
+    console.log(`successCount: ${successCount}`);
+    console.log(`errorCount: ${errorCount}`)
+    console.log('#############################')
   }
+
+  // Upload failed. Increment errorCount. Error displayed inside widget.
+  if (error) {
+    errorCount++;
+    console.log('#############################');
+    console.log('Error:');
+    console.log(`uploadCount: ${uploadCount}`);
+    console.log(`successCount: ${successCount}`);
+    console.log(`errorCount: ${errorCount}`);
+    console.log('#############################');
+  }
+  
+  // Upload was successful. Send the result object to backend. Increment successCount
   if (!error && result && result.event === 'success') {
     // Send the result object to backend to save image data in database
     // When multiple images are uploaded, this event happens for each image
     const serverResponseData = await sendImageDataToServer(result); // returns {success: true or false}
-    successfulUploads++;
+    console.log(`serverResponseData: ${serverResponseData}`)
+    if (serverResponseData.success === true) {
+      successCount++;
+      console.log('#############################');
+      console.log('Success:');
+      console.log(`uploadCount: ${uploadCount}`);
+      console.log(`successCount: ${successCount}`);
+      console.log(`errorCount: ${errorCount}`);
+      console.log('#############################');
+    }
   }
-  if (!error && result && result.event == 'close') {
+
+  // All uploads were successful. Done button is active. Close with 'Done' button.
+  if (!error && result && result.event === 'close') {
+    console.log('#############################');
+    console.log('Close:');
+    console.log(`uploadCount: ${uploadCount}`);
+    console.log(`successCount: ${successCount}`);
+    console.log(`errorCount: ${errorCount}`);
+    console.log('#############################');
     // In a separate script, observer is listening for data-set attribute changes to dataDivResults
     // When the attribute changes, the observer will redirect to the album page
-    if (uploadCount > 0 && successfulUploads === uploadCount) {
-      console.log(`>>>> Successful uploads: ${successfulUploads} === Count uploads: ${uploadCount} (true)`);
-      const dataDivResults = document.getElementById('dataDivResults');
+    if (uploadCount > 0 && uploadCount === successCount + errorCount) {
+      console.log('#############################');
+      console.log('CLOSE => UploadCount = SuccessCount:');
+      console.log(`uploadCount: ${uploadCount}`);
+      console.log(`successCount: ${successCount}`);
+      console.log(`errorCount: ${errorCount}`);
+      console.log('#############################');
       dataDivResults.dataset.uploadResult = 'success';
-    } else {
-      console.log(`>>>> Successful uploads: ${successfulUploads} === Count uploads: ${uploadCount} (false)`);
+    }
+  }
+
+  // Some uploads failed, some were successful. Done button gryed out. Close with 'X'.
+  if (!error && result && result.event === 'abort') {
+    console.log('#############################');
+    console.log('Abort:');
+    console.log(`uploadCount: ${uploadCount}`);
+    console.log(`successCount: ${successCount}`);
+    console.log(`errorCount: ${errorCount}`);
+    console.log('#############################');
+    // In a separate script, observer is listening for data-set attribute changes to dataDivResults
+    // When the attribute changes, the observer will redirect to the album page
+    if (uploadCount > 0 && uploadCount === successCount + errorCount) {
+      console.log('#############################');
+      console.log('ABORT => UploadCount = SuccessCount:');
+      console.log(`uploadCount: ${uploadCount}`);
+      console.log(`successCount: ${successCount}`);
+      console.log(`errorCount: ${errorCount}`);
+      console.log('#############################');
+      dataDivResults.dataset.uploadResult = 'success';
     }
   }
 };
 
+
 const launchWidget = () => {
-  console.log('FE => Launching widget');
-  const myWidget = window.cloudinary.createUploadWidget(options, processResults);
+  console.log(uploadOptions)
+  const myWidget = window.cloudinary.createUploadWidget(uploadOptions, processResults);
   myWidget.open();
 };
 
 const observer = new IntersectionObserver((entries) => {
-  console.log('FE => IntersectionObserver');
   if (entries[0].isIntersecting === true) {
-    console.log('FE => viewNewAlbumButtonDIV is visible');
-    viewNewAlbumButtonDIVisVisible = true;
+    addImagesButtonDIVisVisible = true;
 
     // async anonymous function to excecute the rest of this code below
     (async () => {
       // Get the album name from the "data-album-name" dataset attribute
       const folderName = dataDiv.dataset.albumName;
-      console.log('FE => IntersectionObserver => folderName is ' + folderName);
       // Get the signature from the response
-      const signatureResponse = await setSignatureOptions(folderName);
+      const signatureResponse = await getSignature(folderName);
       const data = await signatureResponse.json();
-      options = createOptionsObj(data); // function options should return the options object
+      uploadOptions = createUploadOptions(data); // function options should return the options object
       // Now wait for user to click on the button to add images to album
 
       // Open the widget from new album button
-      widgetTrigger.addEventListener('click', () => {
+      widgetTriggerFromNewAlbum.addEventListener('click', () => {
         launchWidget();
       });
     })();
   } else {
-    console.log('FE => viewNewAlbumButtonDIV is NOT visible');
-    viewNewAlbumButtonDIVisVisible = false;
+    addImagesButtonDIVisVisible = false;
   }
 });
 
 window.addEventListener('DOMContentLoaded', async (event) => {
-  console.log('FE => DOMContentLoaded');
-  observer.observe(viewNewAlbumButtonDIV);
+  // Open the upload widget from new album button form
+  observer.observe(addImagesButtonDIV);
+
+  // Open the upload widget from existing album 'add' image link
+  widgetTriggerFromExistingAlbums.forEach((button) => {
+    button.addEventListener('click', async (event) => {
+      const folderName = event.target.dataset.albumName;
+      const signatureResponse = await getSignature(folderName);
+      const data = await signatureResponse.json();
+      uploadOptions = createUploadOptions(data); // function options should return the options object
+      launchWidget();
+    });
+
+  });
 });
