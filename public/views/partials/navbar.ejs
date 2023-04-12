@@ -57,7 +57,7 @@
             <% for( let index = 0; index < allAlbums.length; index++ ) { %>
             <li class="nav-item d-flex align-items-center border-top border-bottom" id="<%= allAlbums[index]._id %>">
               <div class="navlist-albumname">
-                <a class="nav-link text-capitalize px-2" aria-current="page" href="/viewalbum/<%= allAlbums[index]._id %> "
+                <a id="link<%= allAlbums[index]._id %>" class="nav-link text-capitalize px-2" aria-current="" href="/viewalbum/<%= allAlbums[index]._id %> "
                   ><%= allAlbums[index].albumName %>
                 </a>
               </div>
@@ -67,7 +67,7 @@
                 <% } %>
               </div>
               <div class="navlist-add-images">
-                <a class="nav-link upload_widget addImagesToAlbum px-3" data-album-name="<%= allAlbums[index].albumName %>">
+                <a class="nav-link upload_widget addImagesToAlbum px-3" data-album-name="<%= allAlbums[index].albumName %>" data-album-id="<%= allAlbums[index]._id%>">
                   <i class="fa-solid fa-cloud-arrow-up"></i>
                 </a>
               </div>
@@ -82,9 +82,6 @@
                 >
                   <i class="fas fa-trash-alt"></i>
                 </a>
-                <!-- <button type="button" class="btn btn-primary w-20" data-bs-toggle="modal" data-bs-target="#delete-album-modal">
-           Launch demo modal
-         </button> -->
               </div>
             </li>
             <% } %>

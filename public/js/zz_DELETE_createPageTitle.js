@@ -1,6 +1,5 @@
 window.addEventListener('DOMContentLoaded', (event) => {
   const title = document.getElementById('title');
-  // const folderToBeDeleted = document.getElementById('foldername');
 
   removeHyphensAndPercentCharsThenWritePageTitle();
 
