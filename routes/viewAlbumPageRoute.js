@@ -13,7 +13,7 @@ router.get('/:albumId', async (req, res) => {
   // add functionality to get all images in album from database
   console.log('req.params.albumId: ', req.params.albumId);
   const albumImages = await getImagesInAlbum(req.params.albumId);
-  // console.log('albumImages: ', albumImages);
+  console.log('albumImages: ', albumImages);
 
   res.render('view-album-page', { allAlbums, albumImages, albumName });
 });

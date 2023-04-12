@@ -17,10 +17,10 @@
       <!-- script masonryGridLayout.js will create a masonry grid gallery -->
       <div class="grid css-margin-top-gallery">
         <div class="grid-sizer"></div>
-        <% for( let index = 0; index < allAlbums.length ; index++ ) { %>
+        <% for( let index = 0; index < albumImages.length ; index++ ) { %>
         <div class="grid-item">
-          <a href="<%= allAlbums[index].secure_url %> ">
-            <img src="<%= allAlbums[index].secure_url %> " />
+          <a href="<%= albumImages[index].secure_url %> ">
+            <img src="<%= albumImages[index].secure_url %> " />
           </a>
         </div>
         <% } %>

@@ -34,8 +34,9 @@ async function handleFormSubmit(event) {
       return;
     } else {
       const newAlbumName = responseData.savedAlbum.albumName;
+      const newAlbumId = responseData.savedAlbum._id;
       const path = responseData.savedAlbum.albumPath;
-      showSuccessMessageAndNextButton(newAlbumName, path); //!send all responseData?
+      showSuccessMessageAndNextButton(newAlbumName, path, newAlbumId); //!send all responseData?
     }
   } catch (error) {
     console.error(error);
@@ -78,7 +79,7 @@ async function postFormDataAsJson({ url, formData }) {
  * Helper function create and show DOM elements
  * @param {string} albumName
  */
-function showSuccessMessageAndNextButton(albumName, path) {
+function showSuccessMessageAndNextButton(albumName, path, newAlbumId) {
   console.log('in showSuccessMessageAndNextButton function');
   const createNewAlbumButton = document.getElementById('createNewAlbumButton'); // to be hidden
   const uploadWidget = document.getElementById('upload_widget_new_album'); // text content to be added to button
@@ -95,6 +96,7 @@ function showSuccessMessageAndNextButton(albumName, path) {
   viewNewAlbumButtonDIV.classList.toggle('hidden');
   uploadWidget.textContent = `Add images to ${albumName}`;
   dataDiv.setAttribute('data-album-name', albumName);
+  dataDiv.setAttribute('data-album-id', newAlbumId);
 
   hintField.style.display = 'none';
   albumNameInput.disabled = true;
