@@ -8,6 +8,7 @@ deleteAlbumModal.addEventListener('show.bs.modal', async (event) => {
 
   // Extract info from data-bs-* attributes
   const albumName = button.getAttribute('data-bs-albumname');
+  const imageCount = button.getAttribute('data-bs-imagecount');
   const albumId = button.getAttribute('data-bs-albumid');
 
   // Update the modal's content.
@@ -15,10 +16,19 @@ deleteAlbumModal.addEventListener('show.bs.modal', async (event) => {
   const modalBodyInput = deleteAlbumModal.querySelector('#insert-modal-body-text');
 
   modalTitle.textContent = `Confirm Delete ${albumName}`;
-  modalBodyInput.innerHTML = `Are you sure you want to <span class="strong">delete ${albumName} and all images inside it</span>? This action cannot be undone.`;
+  if (imageCount === '0') {
+    modalBodyInput.innerHTML = `Delete empty album "${albumName}"? This action cannot be undone.`;
+  } else if (imageCount === '1') {
+    modalBodyInput.innerHTML = `Delete album "${albumName}" with ${imageCount} image inside it? This action cannot be undone.`;
+  } else  {
+    modalBodyInput.innerHTML = `Delete album "${albumName}" with ${imageCount} images inside it? This action cannot be undone.`;
+  }
+// 64245367728db1002b94a54f
+// albumName
+// "gaslighter number one"
 
   // Build the url for deleting via fetch api
-  const url = new URL(`deletealbum/${albumId}`, window.location.href);
+  const url = new URL(`deletealbum/${albumId}`, window.location.origin);
 
   // Build the optings for the fetch api delete request
   const options = {
@@ -50,6 +60,7 @@ deleteAlbumModal.addEventListener('show.bs.modal', async (event) => {
     }
   });
 
+  // Animates deleting the album from the navbar
   function deleteAlbumListItemFromNavBar(albumId) {
     const listItem = document.getElementById(albumId);
     listItem.classList.add('deleted');

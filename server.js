@@ -3,6 +3,7 @@ const morgan = require('morgan');
 require('dotenv').config();
 
 const connectDb = require('./utils/db/db-connection.js');
+const cldMainFolder = require('./utils/cloudinary/cloudinaryMainFolder.js');
 
 // init app & middleware
 const app = express();
@@ -45,7 +46,7 @@ app.use('/renameAlbum', validateBody(valRenameAlbumSchema), renameAlbumNameRoute
 app.use('/uploadimage', addImageToDbRoute);
 app.use('/albumimages', albumImagesRoute);
 app.use('/deleteimage', deleteImageRoute);
-app.use(`/viewalbum`, viewAlbumPageRoute);
+app.use('/viewalbum', viewAlbumPageRoute);
 app.use('/upload', uploadWidgetRoute); //signed uploads via cld widget
 
 app.listen(PORT, () => console.log(`JTWENTY SERVER on port :${PORT}, GOO!!!!!`));

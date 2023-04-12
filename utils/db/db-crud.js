@@ -142,14 +142,14 @@ async function addNewImageToDbAlbum(albumName, newImageData) {
 }
 //##############################################################################
 
-// async function getImagesInAlbum(albumId) {
-//   console.log('albumId', albumId);
-//   const album = await Album.findById(albumId);
-//   console.log(album);
-//   // const album = await Album.findById(albumId).populate('images');
-//   const images = album.allImages;
-//   return images;
-// }
+async function getImagesInAlbum(albumId) {
+  console.log("in getImagesInAlbum function");
+  const album = await Album.findById(albumId);
+  // const album = await Album.findById(albumId).populate('images');
+  const images = album.allImages;
+  // console.log(images);
+  return images;
+}
 //##############################################################################
 
 async function deleteImageFromAlbum(albumId, imageId) {
@@ -220,7 +220,7 @@ module.exports = {
   checkIfDbAlbumNameExists,
   renameDbAlbumName,
   addNewImageToDbAlbum,
-  // getImagesInAlbum,
+  getImagesInAlbum,
   deleteImageFromAlbum,
   getAlbumName
 };
