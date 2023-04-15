@@ -6,6 +6,7 @@ let uploadOptions = {}; //will be populated with the options needed to create th
 const dataDivResults = document.getElementById('dataDivResults'); // will be populated with the upload success data from widget. This element is monitored by an observer in a separate script
 const widgetTriggerFromExistingAlbums = document.querySelectorAll('.upload_widget');
 
+
 const getSignature = async (folderName) => {
   // GET SIGNATURE, tell Cloudinary in advance what folder to upload to
   // The signature is thereafter only valid for requested folder nam
@@ -173,6 +174,10 @@ const observer = new IntersectionObserver((entries) => {
     (async () => {
       // Get the album name from the "data-album-name" dataset attribute
       const folderName = dataDiv.dataset.albumName;
+      // Get album ID from the "data-album-id" dataset attribute
+      const albumID = dataDiv.dataset.albumId;
+      // Write album ID to the dataDivResults dataset attribute, will be used in the observer to redirect to album page
+      dataDivResults.dataset.albumId = albumID;
       // Get the signature from the response
       const signatureResponse = await getSignature(folderName);
       const data = await signatureResponse.json();
@@ -196,7 +201,11 @@ window.addEventListener('DOMContentLoaded', async (event) => {
   // Open the upload widget from existing album 'add' image link
   widgetTriggerFromExistingAlbums.forEach((button) => {
     button.addEventListener('click', async (event) => {
-      const folderName = event.target.dataset.albumName;
+      const dataDivResults = document.getElementById('dataDivResults');
+      const folderName = event.currentTarget.dataset.albumName;
+      const albumId = event.currentTarget.dataset.albumId;
+      console.log(`id: ${albumId}`)
+      dataDivResults.dataset.albumId = `${albumId}`;
       const signatureResponse = await getSignature(folderName);
       const data = await signatureResponse.json();
       uploadOptions = createUploadOptions(data); // function options should return the options object

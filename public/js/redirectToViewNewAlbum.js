@@ -1,6 +1,7 @@
 // Use mutation observer to detect changes in the dataDivResults.dataset.uploadResult
 // attribute. If the attribute changes to 'success', then redirect to the album page
 const observerdataDivResults = new MutationObserver((mutations) => {
+    const albumId = dataDivResults.dataset.albumId;
     const folderName = dataDiv.dataset.albumName;
     const folderId = dataDiv.dataset.albumId;
     mutations.forEach((mutation) => {
@@ -14,7 +15,7 @@ const observerdataDivResults = new MutationObserver((mutations) => {
                     console.log('FE => MutationObserver => mutation.target.dataset.uploadResult is success');
                     console.log(mutation);
                     console.log('FE => MutationObserver => Redirecting to album page');
-                    window.location.href = `/viewalbum/${folderId}`;
+                    window.location.href = `/viewalbum/${albumId}`;
                 }
             }
         }
