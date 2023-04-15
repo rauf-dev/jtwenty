@@ -5,6 +5,8 @@
     <title>jTwenty</title>
     <%- include('partials/head-scripts-defaults') %> <%- include('partials/head-scripts-bootstrap-icons') %>
     <script defer src="./../js/confirmDeleteAlbumModal.js"></script>
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.js"></script>
+    <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.js"></script>
   </head>
 
   <body>
@@ -19,7 +21,7 @@
         <div class="grid-sizer"></div>
         <% for( let index = 0; index < albumImages.length ; index++ ) { %>
         <div class="grid-item">
-          <a href="<%= albumImages[index].secure_url %> ">
+          <a href="<%= albumImages[index].secure_url %> " data-album-id="<%= albumImages[index].albumId %>" data-image-id="<%= albumImages[index]._id %>">
             <img src="<%= albumImages[index].secure_url %> " />
           </a>
         </div>
@@ -40,6 +42,7 @@
     <script src="/js/createNewAlbum.js"></script>
     <script src="/js/redirectToViewNewAlbum.js"></script>
     <script src="/js/activeItemNavListAlbums.js"></script>
+    <script src="/js/masonryGridLayout.js"></script>
     
   </body>
 </html>

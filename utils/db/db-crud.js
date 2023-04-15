@@ -145,9 +145,15 @@ async function addNewImageToDbAlbum(albumName, newImageData) {
 async function getImagesInAlbum(albumId) {
   console.log("in getImagesInAlbum function");
   const album = await Album.findById(albumId);
+
   // const album = await Album.findById(albumId).populate('images');
+  
   const images = album.allImages;
-  // console.log(images);
+  // add respective albumId to images object
+  images[0].albumId = albumId;
+  console.log("################################")
+  console.log(images);
+  console.log("################################")
   return images;
 }
 //##############################################################################
