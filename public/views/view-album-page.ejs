@@ -24,6 +24,9 @@
           <a href="<%= albumImages[index].secure_url %> " data-album-id="<%= albumImages[index].albumId %>" data-image-id="<%= albumImages[index]._id %>">
             <img src="<%= albumImages[index].secure_url %> " />
           </a>
+          <div class="delete-icon">
+            <i class="fas fa-trash-alt"></i>
+          </div>
         </div>
         <% } %>
       </div>

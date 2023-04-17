@@ -51,15 +51,31 @@ main {
 
 .grid-item {
   float: left;
+  position: relative; /* for positioning of delete icon */
+  /* display: inline-block; for positioning of delete icon */
+  vertical-align: top; /* for positioning of delete icon */
 }
 
 .grid-item img {
   display: block;
   max-width: 100%;
-  position: relative;
 
   /* the frame around each image */
   border: 2px solid #fff;
+}
+
+.grid-item a {
+  text-decoration: none;
+}
+
+.delete-icon {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  color: white;
+  border-radius: 50%;
+  padding: 5px;
+  cursor: pointer;
 }
 
 main {
