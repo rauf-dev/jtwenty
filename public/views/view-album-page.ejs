@@ -19,12 +19,12 @@
       <!-- script masonryGridLayout.js will create a masonry grid gallery -->
       <div class="grid css-margin-top-gallery">
         <div class="grid-sizer"></div>
-        <% for( let index = 0; index < albumImages.length ; index++ ) { %>
-        <div class="grid-item">
-          <a href="<%= albumImages[index].secure_url %> " data-album-id="<%= albumImages[index].albumId %>" data-image-id="<%= albumImages[index]._id %>">
-            <img src="<%= albumImages[index].secure_url %> " />
+        <% for( let index = 0; index < album.albumImages.length ; index++ ) { %>
+        <div class="grid-item" id="grid-item-<%= album.albumImages[index]._id%>">
+          <a href="<%= album.albumImages[index].secure_url %> " data-album-id="<%= album._id %>" data-image-id="<%= album.albumImages[index]._id%>">
+            <img src="<%= album.albumImages[index].secure_url %> " />
           </a>
-          <div class="delete-icon">
+          <div class="delete-icon" role="button" data-image-id="<%= album.albumImages[index]._id %>" data-album-id="<%= album._id%>">
             <i class="fas fa-trash-alt"></i>
           </div>
         </div>
@@ -46,6 +46,7 @@
     <script src="/js/redirectToViewNewAlbum.js"></script>
     <script src="/js/activeItemNavListAlbums.js"></script>
     <script src="/js/masonryGridLayout.js"></script>
+    <script src="/js/deleteImage.js"></script>
     
   </body>
 </html>

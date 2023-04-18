@@ -39,17 +39,24 @@ async function getAllDbAlbums() {
   console.log('in getAllDbAlbums');
   try {
     const albumsPathCount = await Album.aggregate([
-      { $project: { albumName: 1, albumPath: 1, albumImages: 1, createdAt: 1 } }, // projects only albumName, albumPath and albumImages
-      { $addFields: { imageCount: { $size: { $ifNull: ['$albumImages', []] } } } }, // add a new field 'imageCount' to the document and set it to the size of the 'albumImages' array or 0 if it's null
-      { $unwind: { path: '$albumImages', preserveNullAndEmptyArrays: true } }, // unwinds the array, preserving null and empty arrays
-      { $group: { _id: '$_id', albumName: { $first: '$albumName' }, albumPath: { $first: '$albumPath' }, count: { $sum: '$imageCount' } } }, // grouping
-      { $project: { _id: '$_id', albumName: 1, count: 1, albumPath: 1, createdAt: 1 } }, // projects only _id, albumName, albumPath and count
+      { $project: { albumName: 1, albumPath: 1, albumImages: 1, createdAt: 1 } },
+      { $addFields: { count: { $size: { $ifNull: ['$albumImages', []] } } } },
+      { $project: { albumName: 1, albumPath: 1, count: 1, createdAt: 1 } }
     ]);
+    
+    // const albumsPathCount = await Album.aggregate([
+    //   { $project: { albumName: 1, albumPath: 1, albumImages: 1, createdAt: 1 } }, // projects only albumName, albumPath and albumImages
+    //   { $addFields: { imageCount: { $size: { $ifNull: ['$albumImages', []] } } } }, // add a new field 'imageCount' to the document and set it to the size of the 'albumImages' array or 0 if it's null
+    //   { $unwind: { path: '$albumImages', preserveNullAndEmptyArrays: true } }, // unwinds the array, preserving null and empty arrays
+    //   { $group: { _id: '$_id', albumName: { $first: '$albumName' }, albumPath: { $first: '$albumPath' }, count: { $sum: '$imageCount' } } }, // grouping
+    //   { $project: { _id: '$_id', albumName: 1, count: 1, albumPath: 1, createdAt: 1 } }, // projects only _id, albumName, albumPath and count
+    // ]);
     return albumsPathCount;
   } catch (error) {
     return error.message;
   }
 }
+//##############################################################################
 // Example Success Response:
 /**
  {
@@ -143,25 +150,24 @@ async function addNewImageToDbAlbum(albumName, newImageData) {
 //##############################################################################
 
 async function getImagesInAlbum(albumId) {
-  console.log("in getImagesInAlbum function");
-  const album = await Album.findById(albumId);
-
-  // const album = await Album.findById(albumId).populate('images');
+  try {
+    console.log("in getImagesInAlbum function");
+    const album = await Album.findById(albumId);
   
-  const images = album.allImages;
-  // add respective albumId to images object
-  images[0].albumId = albumId;
-  console.log("################################")
-  console.log(images);
-  console.log("################################")
-  return images;
+    // returning the full album object as will need the album_id to delete images
+    return album
+  } catch (error) {
+    console.log("catch: error in getImagesInAlbum function");
+    console.log(error);
+  }
+
 }
 //##############################################################################
 
 async function deleteImageFromAlbum(albumId, imageId) {
   console.log('in deleteImageFromAlbum');
   try {
-    let deleteSuccess = false;
+    let deleteStatus = "failed";
     // Check if album and image exist
     const album = await Album.findById(albumId);
     if (!album) {
@@ -176,9 +182,9 @@ async function deleteImageFromAlbum(albumId, imageId) {
     // Delete image from album
     const deleteImage = await Album.findByIdAndUpdate(albumId, { $pull: { albumImages: { _id: imageId } } }, { new: true });
     console.log(`delImage result is ${deleteImage}`);
-    deleteSuccess = true;
+    deleteStatus = "success";
 
-    return { deleteImage, deleteSuccess };
+    return { deleteImage, deleteStatus };
   } catch (error) {
     console.log(error);
     console.log(error.message);

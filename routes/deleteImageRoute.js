@@ -1,25 +1,21 @@
 const express = require('express');
 const router = express.Router();
-const { deleteImageFromAlbum } = require('../utils/db/db-crud')
+const { deleteImageFromAlbum } = require('../utils/db/db-crud');
 
-router.post('/', async (req, res) => {
-    // Which album? req.body.albumId
-    // Which image? req.body.imageId
+router.delete('/:albumId/:imageId', async (req, res) => {
+  console.log('delete image route');
 
-    const albumId = req.body.albumId;
-    const imageId = req.body.imageId;
+  const albumId = req.params.albumId;
+  const imageId = req.params.imageId;
 
-    //Delete image from album
-    const deleteImage = await deleteImageFromAlbum(albumId, imageId);
-    if (!deleteImage) {
-        return res.status(400).json({ error: 'Ops something went wrong' });
-    }
-    res.json({ deleteImage });
+  //Delete image from album
+  const deleteImage = await deleteImageFromAlbum(albumId, imageId);
+  if (!deleteImage) {
+    return res.status(400).json({ error: 'Ops something went wrong' });
+  }
+  console.log('deleteImage.deleteStatus: ', deleteImage.deleteStatus)
+  res.json(deleteImage.deleteStatus);
 
-//   //Get all albumImages per album
-//   console.log(req.params.id);
-//   const albumImages = await getImagesInAlbum(req.params.id);
-//   res.json({ albumImages });
 });
 
 module.exports = router;
