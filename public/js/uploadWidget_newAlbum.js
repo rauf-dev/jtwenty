@@ -32,7 +32,7 @@ function createUploadOptions(data){
     cropping: false,
     folder: data.folder,
     // tags: ['album'],
-    tags: [data.folder, jtwentyAlbums],
+    // tags: [data.folder, "jtwentyAlbums"],
     showAdvancedOptions: true,
     showCompletedButton: true,
     multiple: true,
