@@ -1,9 +1,9 @@
 const express = require('express');
-const morgan = require('morgan');
+const morgan = require('morgan'); // logging
 require('dotenv').config();
 
 const connectDb = require('./utils/db/db-connection.js');
-const cldMainFolder = require('./utils/cloudinary/cloudinaryMainFolder.js');
+// const cldMainFolder = require('./utils/cloudinary/cloudinaryMainFolder.js');
 
 // init app & middleware
 const app = express();
@@ -11,10 +11,11 @@ const PORT = process.env.PORT || 3000;
 
 connectDb();
 
+
 // Server Middleware ################################
 app.set('view engine', 'ejs');
 app.set('views', 'public/views');
-app.use(morgan('tiny'));
+app.use(morgan('tiny')); // logging
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public/'));

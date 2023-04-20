@@ -31,6 +31,8 @@ function createUploadOptions(data){
     uploadSignature: data.signature,
     cropping: false,
     folder: data.folder,
+    // tags: ['album'],
+    tags: [data.folder, jtwentyAlbums],
     showAdvancedOptions: true,
     showCompletedButton: true,
     multiple: true,

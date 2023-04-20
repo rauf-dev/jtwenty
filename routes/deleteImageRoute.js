@@ -17,5 +17,5 @@ router.delete('/:albumId/:imageId', async (req, res) => {
   res.json(deleteImage.deleteStatus);
 
 });
-
+ 
 module.exports = router;
