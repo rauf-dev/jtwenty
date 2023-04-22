@@ -11,6 +11,9 @@ const PORT = process.env.PORT || 3000;
 
 connectDb();
 
+// Run once to create named transformations
+const { runOnceCreateNamedTransformations } = require('./utils/cloudinary/cloudinaryConfig.js');
+runOnceCreateNamedTransformations();
 
 // Server Middleware ################################
 app.set('view engine', 'ejs');

@@ -23,6 +23,7 @@ const AlbumSchema = new Schema({
       public_id: String,
       url: String,
       secure_url: String,
+      thumbnail_url: String,
     },
   ],
 });
@@ -34,6 +35,7 @@ AlbumSchema.virtual('allImages').get(function () {
       public_id: image.public_id,
       url: image.url,
       secure_url: image.secure_url,
+      thumbnail_url: image.thumbnail_url,
       _id: image._id,
     };
   });

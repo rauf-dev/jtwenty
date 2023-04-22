@@ -138,7 +138,11 @@ async function renameDbAlbumName(albumId, newAlbumName) {
 // Insert new Image to db
 // Send as content-type application/json, body --> raw (JSON). See data example below
 async function addNewImageToDbAlbum(albumName, newImageData) {
+  console.log('###############################################')
   console.log('in addNewImageToDbAlbum');
+  console.log('newImageData')
+  console.log(newImageData)
+  console.log('###############################################')
   try {
     const savedImages = await Album.findOneAndUpdate({ albumName: albumName }, { $push: { albumImages: newImageData } }, { new: true, upsert: true });
     return savedImages;

@@ -34,6 +34,11 @@ router.post('/save-image-data', async (req, res) => {
   // Save image data to database using mongoose, save to albumImages array
   const albumName = req.body.folder;
 
+  // Create a thumbnail transformation url by modifying existing url, e.g.:
+  // from https://res.cloudinary.com/jtwenty/image/upload/v1620000000/jtwentyAlbums/albumName/imageName.jpg
+  // to https://res.cloudinary.com/jtwenty/image/upload/c_thumb/v1620000000/jtwentyAlbums/albumName/imageName.jpg
+  const thumbnailUrl = req.body.url.replace('/upload/', '/upload/c_thumb/');
+
   //! To do: Figure out which image fields really need to be saved to DB
   const image = {
     public_id: req.body.public_id,
@@ -46,6 +51,7 @@ router.post('/save-image-data', async (req, res) => {
     tags: req.body.tags,
     url: req.body.url,
     secure_url: req.body.secure_url,
+    thumbnail_url: thumbnailUrl,
     original_filename: req.body.original_filename,
     folder: req.body.folder,
   };
