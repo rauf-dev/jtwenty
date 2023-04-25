@@ -1,7 +1,7 @@
 // Signed upload using cloudinary widget
 
 const express = require('express');
-const { addNewImageToDbAlbum } = require('../utils/db/db-crud.js')
+const { addNewImageToDbAlbum } = require('../utils/db/db-crud.js');
 const cloudinaryConfig = require('../utils/cloudinary/cloudinaryConfig.js');
 const cldMainFolder = require('../utils/cloudinary/cloudinaryMainFolder.js');
 const getSignature = require('../utils/cloudinary/getSignature.js');
@@ -57,11 +57,10 @@ router.post('/save-image-data', async (req, res) => {
   };
 
   // Find album in database and push image data to albumImages array
-  const savedImageDataToDB = addNewImageToDbAlbum(albumName, image)
+  const savedImageDataToDB = addNewImageToDbAlbum(albumName, image);
   console.log('Saved image data to DB');
   console.log(savedImageDataToDB);
   res.json({ success: true, folder: albumName });
 });
-
 
 module.exports = router;
