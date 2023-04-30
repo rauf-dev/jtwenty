@@ -23,7 +23,9 @@ const AlbumSchema = new Schema({
       public_id: String,
       url: String,
       secure_url: String,
-      thumbnail_url: String,
+      masonry_url: String,
+      // thumbnail_url: String,
+      // fullSizeUrl: String,
     },
   ],
 });

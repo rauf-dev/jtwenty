@@ -10,9 +10,5 @@ const cloudinaryConfig = cloudinary.config({
   secure: true,
 });
 
-console.log('process.env.CLOUDINARY_CLOUD_NAME');
-console.log(process.env.CLOUDINARY_CLOUD_NAME);
-console.log(process.env.CLOUDINARY_API_KEY);
-
 module.exports = cloudinaryConfig;
 

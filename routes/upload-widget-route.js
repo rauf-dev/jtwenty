@@ -5,6 +5,7 @@ const { addNewImageToDbAlbum } = require('../utils/db/db-crud.js');
 const cloudinaryConfig = require('../utils/cloudinary/cloudinaryConfig.js');
 const cldMainFolder = require('../utils/cloudinary/cloudinaryMainFolder.js');
 const getSignature = require('../utils/cloudinary/getSignature.js');
+const createOptimizedImageUrl = require('../utils/cloudinary/optimizeImage.js');
 
 const router = express.Router();
 
@@ -34,10 +35,15 @@ router.post('/save-image-data', async (req, res) => {
   // Save image data to database using mongoose, save to albumImages array
   const albumName = req.body.folder;
 
-  // Create a thumbnail transformation url by modifying existing url, e.g.:
-  // from https://res.cloudinary.com/jtwenty/image/upload/v1620000000/jtwentyAlbums/albumName/imageName.jpg
-  // to https://res.cloudinary.com/jtwenty/image/upload/c_thumb/v1620000000/jtwentyAlbums/albumName/imageName.jpg
-  const thumbnailUrl = req.body.url.replace('/upload/', '/upload/c_thumb/');
+  // Below can be achieved by using the cloudinary widget upload preset
+  // Create url with thumbnail transformation and quality auto, delivery format auto
+  // from https://res.cloudinary.com/cloudname/image/upload/albumName/imageName.jpg
+  // to https://res.cloudinary.com/cloudname/image/upload/t_jtwentyThumbnail/f_auto/q_auto/albumName/imageName
+  // note that the image format is removed from the url
+  // const thumbnailUrlWithQuality = req.body.url.replace('/upload/', '/upload/t_jtwentyThumbnail/f_auto/q_auto/');
+
+  const masonryUrl = await createOptimizedImageUrl(req.body.public_id, "jtwentyMosaic_v2");
+  console.log('masonryUrl', masonryUrl);
 
   //! To do: Figure out which image fields really need to be saved to DB
   const image = {
@@ -51,7 +57,9 @@ router.post('/save-image-data', async (req, res) => {
     tags: req.body.tags,
     url: req.body.url,
     secure_url: req.body.secure_url,
-    thumbnail_url: thumbnailUrl,
+    masonry_url: masonryUrl,
+    // thumbnail_url: thumbnailUrlWithQuality,
+    // fullSizeUrl: fullSizeUrlWithQuality,
     original_filename: req.body.original_filename,
     folder: req.body.folder,
   };

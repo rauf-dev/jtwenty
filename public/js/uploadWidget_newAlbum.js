@@ -36,7 +36,7 @@ function createUploadOptions(data){
     showAdvancedOptions: true,
     showCompletedButton: true,
     multiple: true,
-    maxFiles: 10,
+    maxFiles: 20,
     sources: ['local', 'url', 'camera', 'dropbox', 'instagram'],
     maxFileSize: 10000000, // 10MB
   };

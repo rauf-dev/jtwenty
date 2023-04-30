@@ -22,7 +22,7 @@
         <% for( let index = 0; index < album.albumImages.length ; index++ ) { %>
         <div class="grid-item" id="grid-item-<%= album.albumImages[index]._id%>">
           <a href="<%= album.albumImages[index].secure_url %> " data-album-id="<%= album._id %>" data-image-id="<%= album.albumImages[index]._id%>">
-            <img src="<%= album.albumImages[index].thumbnail_url %> " />
+            <img src="<%= album.albumImages[index].masonry_url %> " />
           </a>
           <div class="delete-icon" role="button" data-image-id="<%= album.albumImages[index]._id %>" data-album-id="<%= album._id%>">
             <i class="fas fa-trash-alt"></i>
