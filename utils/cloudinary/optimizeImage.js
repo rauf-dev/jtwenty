@@ -14,9 +14,12 @@ const createOptimizedImageUrl = async function (imageName, transformationName) {
   const url = await cloudinary.url(imageName, {
     if: 'w_gt_1200',
     width: 1200,
+    // quality: 'auto',
+
     chain: {
       if: 'h_gt_550',
       height: 550,
+      // quality: 'auto',
     },
   });
   return url;

@@ -76,8 +76,20 @@ main {
   padding: 5px;
   cursor: pointer;
 }
+.set-cover-image {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  color: white;
+  border-radius: 50%;
+  padding: 5px;
+  cursor: pointer;
+}
 
 .delete-icon:hover {
+  transform: scale(1.2);
+}
+.set-cover-image:hover{
   transform: scale(1.2);
 }
 
