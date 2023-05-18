@@ -45,7 +45,7 @@ router.post('/save-image-data', async (req, res) => {
   const masonryUrl = await createOptimizedImageUrl(req.body.public_id, "jtwentyMosaic_v2");
   console.log('masonryUrl', masonryUrl);
 
-  //! To do: Figure out which image fields really need to be saved to DB
+
   const image = {
     public_id: req.body.public_id,
     format: req.body.format,
@@ -62,6 +62,7 @@ router.post('/save-image-data', async (req, res) => {
     // fullSizeUrl: fullSizeUrlWithQuality,
     original_filename: req.body.original_filename,
     folder: req.body.folder,
+    isCoverImage: false,
   };
 
   // Find album in database and push image data to albumImages array

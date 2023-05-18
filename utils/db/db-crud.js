@@ -41,9 +41,9 @@ async function getAllDbAlbums() {
     const albumsPathCount = await Album.aggregate([
       { $project: { albumName: 1, albumPath: 1, albumImages: 1, createdAt: 1 } },
       { $addFields: { count: { $size: { $ifNull: ['$albumImages', []] } } } },
-      { $project: { albumName: 1, albumPath: 1, count: 1, createdAt: 1 } }
+      { $project: { albumName: 1, albumPath: 1, count: 1, createdAt: 1 } },
     ]);
-    
+
     // const albumsPathCount = await Album.aggregate([
     //   { $project: { albumName: 1, albumPath: 1, albumImages: 1, createdAt: 1 } }, // projects only albumName, albumPath and albumImages
     //   { $addFields: { imageCount: { $size: { $ifNull: ['$albumImages', []] } } } }, // add a new field 'imageCount' to the document and set it to the size of the 'albumImages' array or 0 if it's null
@@ -114,7 +114,7 @@ async function checkIfDbAlbumNameExists(data) {
   try {
     const albumNameExistsInDB = await Album.exists({ albumName: data });
     console.log('albumNameExistsInDB', albumNameExistsInDB);
-    return albumNameExistsInDB; 
+    return albumNameExistsInDB;
   } catch (error) {
     console.log('catching error in checkIfDbAlbumNameExists');
     return error.message;
@@ -138,11 +138,11 @@ async function renameDbAlbumName(albumId, newAlbumName) {
 // Insert new Image to db
 // Send as content-type application/json, body --> raw (JSON). See data example below
 async function addNewImageToDbAlbum(albumName, newImageData) {
-  console.log('###############################################')
+  console.log('###############################################');
   console.log('in addNewImageToDbAlbum');
-  console.log('newImageData')
-  console.log(newImageData)
-  console.log('###############################################')
+  console.log('newImageData');
+  console.log(newImageData);
+  console.log('###############################################');
   try {
     const savedImages = await Album.findOneAndUpdate({ albumName: albumName }, { $push: { albumImages: newImageData } }, { new: true, upsert: true });
     return savedImages;
@@ -155,23 +155,22 @@ async function addNewImageToDbAlbum(albumName, newImageData) {
 
 async function getImagesInAlbum(albumId) {
   try {
-    console.log("in getImagesInAlbum function");
+    console.log('in getImagesInAlbum function');
     const album = await Album.findById(albumId);
-  
+
     // returning the full album object as will need the album_id to delete images
-    return album
+    return album;
   } catch (error) {
-    console.log("catch: error in getImagesInAlbum function");
+    console.log('catch: error in getImagesInAlbum function');
     console.log(error);
   }
-
 }
 //##############################################################################
 
 async function deleteImageFromAlbum(albumId, imageId) {
   console.log('in deleteImageFromAlbum');
   try {
-    let deleteStatus = "failed";
+    let deleteStatus = 'failed';
     // Check if album and image exist
     const album = await Album.findById(albumId);
     if (!album) {
@@ -186,7 +185,7 @@ async function deleteImageFromAlbum(albumId, imageId) {
     // Delete image from album
     const deleteImage = await Album.findByIdAndUpdate(albumId, { $pull: { albumImages: { _id: imageId } } }, { new: true });
     console.log(`delImage result is ${deleteImage}`);
-    deleteStatus = "success";
+    deleteStatus = 'success';
 
     return { deleteImage, deleteStatus };
   } catch (error) {
@@ -222,9 +221,57 @@ async function getAlbumName(data) {
   try {
     const albumName = await Album.findById(data);
     console.log('albumName', albumName);
-    return albumName.albumName; 
+    return albumName.albumName;
   } catch (error) {
     console.log('catching error in getAlbumName');
+    return error.message;
+  }
+}
+
+//function that takes in album name, album id and image id and finds in db the image and writes the image "isCoverImage: Boolean," to true
+async function setCoverImage(albumId, imageId) {
+  console.log('in DB CRUDS setCoverImage');
+  try {
+    const album = await Album.findById(albumId);
+    if (!album) {
+      throw new Error(`Album with ID ${albumId} not found`);
+    }
+    const image = album.albumImages.find((image) => image._id.toString() === imageId);
+    if (!image) {
+      throw new Error(`Image with ID ${imageId} not found in album with ID ${albumId}`);
+    }
+    console.log('album and image found');
+    // Set image to cover image
+    const setCoverImage = await Album.findByIdAndUpdate(
+      albumId,
+      { $set: { 'albumImages.$[elem].isCoverImage': true } },
+      { arrayFilters: [{ 'elem._id': imageId }], new: true }
+    );
+    // console.log(`setCoverImage result is ${setCoverImage}`);
+    return setCoverImage;
+  } catch (error) {
+    console.log(error);
+    console.log(error.message);
+    return error.message;
+  }
+}
+
+//function that takes in album id and resets all images "isCoverImage: Boolean," to false
+async function resetCoverImage(albumId) {
+  console.log('in DB CRUDS resetCoverImage');
+  try {
+    const album = await Album.findById(albumId);
+    if (!album) {
+      throw new Error(`Album with ID ${albumId} not found`);
+    }
+    console.log('album found');
+    // Set image to cover image
+    const resetCoverImage = await Album.findByIdAndUpdate(albumId, { $set: { 'albumImages.$[].isCoverImage': false } }, { new: true });
+    // console.log(`resetCoverImage result is ${resetCoverImage}`);
+    return resetCoverImage;
+  } catch (error) {
+    console.log(error);
+    console.log(error.message);
     return error.message;
   }
 }
@@ -238,5 +285,7 @@ module.exports = {
   addNewImageToDbAlbum,
   getImagesInAlbum,
   deleteImageFromAlbum,
-  getAlbumName
+  getAlbumName,
+  setCoverImage,
+  resetCoverImage,
 };

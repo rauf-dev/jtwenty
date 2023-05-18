@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+  <head>
+    <%- include('partials/head-meta-defaults') %> <%- include('partials/head-links-defaults') %>
+    <title>2022</title>
+    <%- include('partials/head-scripts-defaults') %> <%- include('partials/head-scripts-bootstrap-icons') %>
+    <script defer src="./js/confirmDeleteAlbumModal.js"></script>
+  </head>
+
+  <body>
+    <%- include('partials/navbar') %>
+    <main>
+      <%- include ('partials/modal-confirm-delete-album') %>
+
+      <div class="container col-xl-10 col-xxl-8 px-4 py-5">
+        <div class="row flex-lg-row-reverse align-items-center justify-content-center g-5 py-5">
+          <div class="col-10 col-sm-8 col-lg-6">
+            <img
+              src="/assets/undraw_Portfolio_update_re_jqnp.png"
+              class="d-block mx-lg-auto img-fluid"
+              alt="Image of Person interacting with a large display with many images in it"
+              loading="lazy"
+              width="700"
+              height="500"
+            />
+          </div>
+          <div class="col-lg-6">
+            <h1 class="display-5 fw-bold lh-1 mb-3">Organise and revive your best memories</h1>
+            <p class="lead">
+              Overloaded when browsing your thousands of pictures searching for that special one? MyAlbums lets you easily create albums and add your
+              pictures. The difference? Each album can only contain 20 pictures. Makes you select the best ones.
+            </p>
+            <p class="lead">
+              Get started by creating your first album. You can always add more later. Use the navigation bar to create and access your albums.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <%- include('partials/albums-buttons') %>
+    </main>
+
+    <%- include('partials/footer') %> <%- include('partials/body-scripts-bootstrap') %>
+    <!-- cloudinary upload widget -->
+    <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
+    <!-- <script src="/js/uploadWidget_newAlbum.js" type="text/javascript"></script> -->
+    <script src="/js/uploadWidget_newAlbum.js" type="text/javascript"></script>
+    <script src="/js/createNewAlbum.js"></script>
+    <script src="/js/redirectToViewNewAlbum.js"></script>
+  </body>
+</html>
