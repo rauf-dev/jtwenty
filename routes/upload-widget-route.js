@@ -1,7 +1,7 @@
 // Signed upload using cloudinary widget
 
 const express = require('express');
-const { addNewImageToDbAlbum } = require('../utils/db/db-crud.js');
+const { addNewImageToDbAlbum, defaultSetCoverImage } = require('../utils/db/db-crud.js');
 const cloudinaryConfig = require('../utils/cloudinary/cloudinaryConfig.js');
 const cldMainFolder = require('../utils/cloudinary/cloudinaryMainFolder.js');
 const getSignature = require('../utils/cloudinary/getSignature.js');
@@ -66,7 +66,11 @@ router.post('/save-image-data', async (req, res) => {
   };
 
   // Find album in database and push image data to albumImages array
-  const savedImageDataToDB = addNewImageToDbAlbum(albumName, image);
+  const savedImageDataToDB = await addNewImageToDbAlbum(albumName, image); //await added 19.05.2023, any reason was excluded?
+
+  // run function to findOrSetCoverImage(albumName)
+  const setCoverImageResult = await defaultSetCoverImage(albumName);
+
   console.log('Saved image data to DB');
   console.log(savedImageDataToDB);
   res.json({ success: true, folder: albumName });

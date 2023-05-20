@@ -24,6 +24,7 @@ const AlbumSchema = new Schema({
       url: String,
       secure_url: String,
       masonry_url: String,
+      coverImage_url: String,
       isCoverImage: Boolean,
       // thumbnail_url: String,
       // fullSizeUrl: String,

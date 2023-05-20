@@ -69,3 +69,12 @@ When viewing single large image (e.g. slideshow), a different
 ### Optimization
 Optimizations are quality = auto and delivery format = auto. Can only be done on the fly because are optimized to the user device / browser.
 
+### Cover Image
+- When creating an album no cover image is set
+- When uploading image(s) no cover image is set
+- Cover image is set when loading the landing page
+  - Server side script in landingPageRoute runs:
+    - Per album, checks if images available
+    - if none, set a default coverImage
+    - if images exist, check if a coverImage is set
+TO-DO: define/write coverImage url. How is regular url set? use regular with transforms to get coverImage?

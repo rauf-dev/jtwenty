@@ -1,5 +1,5 @@
 const express = require('express');
-const { setCoverImage, resetCoverImage } = require('../utils/db/db-crud.js');
+const { userSetCoverImage } = require('../utils/db/db-crud.js');
 
 const router = express.Router();
 
@@ -10,9 +10,9 @@ router.post('/', async (req, res) => {
     const imageId = req.body.imageId;
 
     // reset all images in album to isCoverImage: false
-    const resetCoverImageResult = await resetCoverImage(albumId);
+    // const resetCoverImageResult = await resetCoverImage(albumId);
 
-    const setCoverImageResult = await setCoverImage(albumId, imageId);
+    const setCoverImageResult = await userSetCoverImage(albumId, imageId);
     // console.log('setCoverImageResult', setCoverImageResult);
     res.send(setCoverImageResult);
 
