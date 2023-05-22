@@ -25,18 +25,19 @@ const createOptimizedImageUrl = async function (imageName, transformationName) {
   return url;
 };
 
-// const createOptimizedImageUrl = async function (imageName, transformationName) {
-//   // init cloudinary
-//   cloudinaryConfig;
 
-//   return await cloudinary.url(imageName, {
-//     secure: true,
-//     transformation: [
-//       { transformation: transformationName },
-//       { quality: 'auto' },
-//       { fetch_format: 'auto'},
-//     ],
-//   });
-// };
+// create url for landing page which includes the album name as text overlay
+const createLandingPageUrl = async function (imageName, albumName) {
+  const wordsAlbumName = albumName.split(' ');
+  const capitalizedAlbumName = wordsAlbumName.map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+  const url = await cloudinary.url(imageName, {
+    transformation: [
+      { crop: 'fill', width: 514, height: 514, quality: 'auto', fetch_format: 'auto' },
+      { color: '#FFFF00', overlay: { font_family: 'helvetica', font_size: 60, font_weight: 'bold', text_align: 'center', text: capitalizedAlbumName}, width: 500, height: 500, crop: 'fit'  },
+      { flags: 'layer_apply', gravity: "south", y: 20},
+    ],
+  });
+  return url;
+};
 
-module.exports = createOptimizedImageUrl;
+module.exports = { createOptimizedImageUrl, createLandingPageUrl };

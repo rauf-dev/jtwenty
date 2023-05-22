@@ -237,6 +237,7 @@ async function defaultSetCoverImage(allAlbums) {
           coverImageUrl: '/assets/no-image-available.jpg',
           albumName: album.albumName,
           albumId: album._id,
+          count: allAlbums[i].count,
         };
         coverAlbums.push(coverImage);
       } else {
@@ -246,17 +247,19 @@ async function defaultSetCoverImage(allAlbums) {
         if (foundCoverImage) {
           console.log('album has cover image');
           const coverImage = {
-            coverImageUrl: foundCoverImage.url,
+            coverImageUrl: foundCoverImage.landingPage_url,
             albumName: album.albumName,
             albumId: album._id,
+            count: allAlbums[i].count,
           };
           coverAlbums.push(coverImage);
         } else {
           console.log('album has no cover image');
           const coverImage = {
-            coverImageUrl: albumImages.albumImages[0].url,
+            coverImageUrl: albumImages.albumImages[0].landingPage_url,
             albumName: album.albumName,
             albumId: album._id,
+            count: allAlbums[i].count,
           };
           coverAlbums.push(coverImage);
           // save coverImage to db
@@ -272,64 +275,14 @@ async function defaultSetCoverImage(allAlbums) {
   }
 }
 
-// async function defaultSetCoverImage(allAlbums) {
-//   console.log('in defaultSetCoverImage');
-//   try {
-//     const coverAlbums = [];
-//     console.log(allAlbums.length)
-//     for (let i = 0; i < allAlbums.length; i++) {
-//       const album = allAlbums[i];
-
-//       // get array of images in album
-//       const albumImages = await getImagesInAlbum(album._id)
-//       console.log('albumImages', albumImages);
-
-//       if (albumImages.albumImages.length === 0) {
-//         console.log('album has no images');
-//         const coverImage = {
-//           coverImageUrl: 'public/assets/no-image-available.jpg',
-//           albumName: album.albumName,
-//           albumId: album._id,
-//         };
-//         coverAlbums.push(coverImage);
-//       } else {
-//         console.log('album has images');
-//         const coverImage = await albumImages.albumImages.find((image) => image.isCoverImage === true);
-
-//         if (coverImage) {
-//           console.log('album has cover image');
-//           const coverImage = {
-//             coverImageUrl: coverImage.imageUrl,
-//             albumName: album.albumName,
-//             albumId: album._id,
-//           };
-//           coverAlbums.push(coverImage);
-//         } else {
-//           console.log('album has no cover image');
-//           const coverImage = {
-//             coverImageUrl: album.albumImages[0].imageUrl,
-//             albumName: album.albumName,
-//             albumId: album._id,
-//           };
-//           coverAlbums.push(coverImage);
-//           // save coverImage to db
-//           await userSetCoverImage(album._id, album.albumImages[0]._id);
-//         }
-//       }
-//     }
-//     return coverAlbums;
-//   } catch (error) {
-//     console.log('catching error in defaultSetCoverImage');
-//     console.log(error);
-//     return error.message;
-//   }
-// }
-
 //##############################################################################
 
 //function that takes in album name, album id and image id and finds in db the image and writes the image "isCoverImage: Boolean," to true
 // and writes the rest of the images in the album to false.
-// This function is triggered in FE when user manually sets a cover image for an album.
+// This function is triggered in two places
+// 1. FE when user manually sets a cover image for an album.
+// 2. BE when user creates a new album and the first image in the album is set as the cover image.
+
 async function userSetCoverImage(albumId, imageId) {
   console.log('in DB CRUDS setCoverImage');
   try {

@@ -5,7 +5,7 @@ const { addNewImageToDbAlbum, defaultSetCoverImage } = require('../utils/db/db-c
 const cloudinaryConfig = require('../utils/cloudinary/cloudinaryConfig.js');
 const cldMainFolder = require('../utils/cloudinary/cloudinaryMainFolder.js');
 const getSignature = require('../utils/cloudinary/getSignature.js');
-const createOptimizedImageUrl = require('../utils/cloudinary/optimizeImage.js');
+const { createOptimizedImageUrl, createLandingPageUrl } = require('../utils/cloudinary/optimizeImage.js');
 
 const router = express.Router();
 
@@ -42,9 +42,11 @@ router.post('/save-image-data', async (req, res) => {
   // note that the image format is removed from the url
   // const thumbnailUrlWithQuality = req.body.url.replace('/upload/', '/upload/t_jtwentyThumbnail/f_auto/q_auto/');
 
-  const masonryUrl = await createOptimizedImageUrl(req.body.public_id, "jtwentyMosaic_v2");
+  const masonryUrl = await createOptimizedImageUrl(req.body.public_id, 'jtwentyMosaic_v2');
   console.log('masonryUrl', masonryUrl);
 
+  //! CONTINUE HERE, check cloudinary thumbnail transformation and text overlay
+  const landingPageUrl = await createLandingPageUrl(req.body.public_id, albumName);
 
   const image = {
     public_id: req.body.public_id,
@@ -58,6 +60,7 @@ router.post('/save-image-data', async (req, res) => {
     url: req.body.url,
     secure_url: req.body.secure_url,
     masonry_url: masonryUrl,
+    landingPage_url: landingPageUrl,
     // thumbnail_url: thumbnailUrlWithQuality,
     // fullSizeUrl: fullSizeUrlWithQuality,
     original_filename: req.body.original_filename,
