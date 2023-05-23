@@ -148,5 +148,18 @@ main {
   }
 }
 
+/* LandingPage Card */
+.landingPageCard{
+  position: relative;
+}
 
-
+/* Landing page, count of images per album, same color as cloudinary text color */
+.overlayCountTextColor{
+  color: #FFFF00;
+  text-shadow: 0 0 3px #000;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  border-radius: 50%;
+  padding: 5px;
+}
