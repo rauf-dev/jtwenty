@@ -263,7 +263,7 @@ async function defaultSetCoverImage(allAlbums) {
           };
           coverAlbums.push(coverImage);
           // save coverImage to db
-          await userSetCoverImage(album._id, albumImages.albumImages[0]._id);
+          await userSetCoverImage(album._id, albumImages.albumImages[0].public_id);
         }
       }
     }
@@ -283,25 +283,25 @@ async function defaultSetCoverImage(allAlbums) {
 // 1. FE when user manually sets a cover image for an album.
 // 2. BE when user creates a new album and the first image in the album is set as the cover image.
 
-async function userSetCoverImage(albumId, imageId) {
+async function userSetCoverImage(albumId, imagePublicId) {
   console.log('in DB CRUDS setCoverImage');
   try {
     const album = await Album.findById(albumId);
     if (!album) {
       throw new Error(`Album with ID ${albumId} not found`);
     }
-    const image = album.albumImages.find((image) => image._id.toString() === imageId);
+    const image = album.albumImages.find((image) => image.public_id === imagePublicId);
     if (!image) {
-      throw new Error(`Image with ID ${imageId} not found in album with ID ${albumId}`);
+      throw new Error(`Image with Public ID ${imagePublicId} not found in album with ID ${albumId}`);
     }
     console.log('album and image found');
-    // Set image to cover image
-    const setCoverImage = await Album.findByIdAndUpdate(
-      albumId,
-      { $set: { 'albumImages.$[elem].isCoverImage': true } },
-      { arrayFilters: [{ 'elem._id': imageId }], new: true }
+    // Find album in db, inside album find the image "imagePublicId" and write isCoverImage: true
+    const setCoverImage = await Album.findOneAndUpdate(
+      { _id: albumId, 'albumImages.public_id': imagePublicId },
+      { $set: { 'albumImages.$.isCoverImage': true } },
+      { new: true }
     );
-    // console.log(`setCoverImage result is ${setCoverImage}`);
+    console.log(`setCoverImage result is ${setCoverImage}`);
     return setCoverImage;
   } catch (error) {
     console.log(error);
