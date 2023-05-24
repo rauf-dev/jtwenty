@@ -5,11 +5,13 @@ async function getSignature(widgetOrForm, uploadDestinationFolder, timestamp) {
   try {
     if (widgetOrForm === 'widget') {
       console.log('returning widget signature');
+      const albumNameForTag = uploadDestinationFolder.split('/')[1];
       return cloudinary.v2.utils.api_sign_request(
         {
           timestamp: timestamp,
           source: 'uw',
           folder: uploadDestinationFolder,
+          tags: [albumNameForTag, "jtwentyAlbums"]
         },
         cloudinaryConfig.api_secret
       );

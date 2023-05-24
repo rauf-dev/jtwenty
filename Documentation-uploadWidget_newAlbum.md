@@ -38,7 +38,7 @@ flowchart TD;
 
 ## 2. Image Upload for Existing Album 
 
-In flow below there is a noticiable delay before the widget opens. This is because the signature options are not prepared in advance. Currently cannot pre-load signature because the folder name must be known in advance. In this flow, we only know the album name when user clicks on it.
+In flow below there is a noticeable delay before the widget opens. This is because the signature options are not prepared in advance. Currently cannot pre-load signature because the folder name must be known in advance. In this flow, we only know the album name when user clicks on it.
 
 ``` mermaid
 flowchart TD;

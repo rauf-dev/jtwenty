@@ -21,36 +21,26 @@
         <div class="grid-sizer"></div>
         <% for( let index = 0; index < album.albumImages.length ; index++ ) { %>
         <div class="grid-item" id="grid-item-<%= album.albumImages[index]._id%>">
-          <a class="launchGallery" href="<%= album.albumImages[index].secure_url %> " data-album-id="<%= album._id %>" data-image-id="<%= album.albumImages[index]._id%>" data-album-name="<%= album.albumName %>">
+          <a href="<%= album.albumImages[index].secure_url %> " data-album-id="<%= album._id %>" data-image-id="<%= album.albumImages[index]._id%>">
             <img src="<%= album.albumImages[index].masonry_url %> " />
           </a>
           <div class="delete-icon" role="button" data-image-id="<%= album.albumImages[index]._id %>" data-album-id="<%= album._id%>">
             <i class="fas fa-trash-alt"></i>
           </div>
-          <div
-            class="set-cover-image"
-            data-albumname-coverimage="<%=album.albumName%>"
-            data-albumid-coverimage="<%=album._id%>"
-            data-imageid-coverimage="<%= album.albumImages[index]._id%>"
-            data-imagepublicid-coverimage="<%= album.albumImages[index].public_id%>"
-          >
-            <input
-              class="form-check-input"
-              type="radio"
-              name="album-cover"
-              id="album-cover-<%= album.albumImages[index]._id%>"
-              value="<%= album.albumImages[index].isCoverImage%>"
-            />
+          <div class="set-cover-image" data-albumname-coverimage="<%=album.albumName%>" data-albumid-coverimage="<%=album._id%>" data-imageid-coverimage="<%= album.albumImages[index]._id%>" data-imagepublicid-coverimage= "<%= album.albumImages[index].public_id%>">
+              <input class="form-check-input" type="radio" name="album-cover" id="album-cover-<%= album.albumImages[index]._id%>" value="<%= album.albumImages[index].isCoverImage%>" />
           </div>
         </div>
         <% } %>
       </div>
-      <section id="my-gallery" style="max-width: 80%; margin: auto"></section>
     </main>
 
     <%- include('partials/footer') %> <%- include('partials/body-scripts-bootstrap') %>
-    <script src="https://product-gallery.cloudinary.com/all.js" type="application/javascript"></script>
+    <!-- <script src="/js/masonryGridLayout.js"></script> -->
+    <!-- cloudinary upload widget -->
+    <!-- <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script> -->
     <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+    <!-- <script src="/js/uploadWidget_newAlbum.js" type="text/javascript"></script> -->
     <script src="/js/uploadWidget_newAlbum.js" type="text/javascript"></script>
     <script src="/js/createNewAlbum.js"></script>
     <script src="/js/redirectToViewNewAlbum.js"></script>
@@ -58,6 +48,5 @@
     <script src="/js/masonryGridLayout.js"></script>
     <script src="/js/deleteImage.js"></script>
     <script src="/js/setCoverImage.js"></script>
-    <script src="/js/launchImageGalleryWidget.js"></script>
   </body>
 </html>

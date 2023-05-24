@@ -24,6 +24,7 @@ const getSignature = async (folderName) => {
 
 // Use signature data to build the options needed to create the widget
 function createUploadOptions(data){
+  const albumNameForTag = data.folder.split('/')[1];
   return {
     cloudName: data.cloudname,
     apiKey: data.apikey,
@@ -31,7 +32,7 @@ function createUploadOptions(data){
     uploadSignature: data.signature,
     cropping: false,
     folder: data.folder,
-    // tags: ['album'],
+    tags: [albumNameForTag, "jtwentyAlbums"],
     // tags: [data.folder, "jtwentyAlbums"],
     showAdvancedOptions: true,
     showCompletedButton: true,

@@ -129,3 +129,6 @@ Cover image is defined in two places:
 
 The scripts used are:
 db-crud.js => defaultSetCoverImage, userSetCoverImage, resetCoverImage
+
+
+# Quick notes
