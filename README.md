@@ -48,33 +48,43 @@ Create New Album
 
 # Documentation
 
-## Cloudinary
-
-## Determine Optimal Image Dimensions
-Samsung Galaxy Landscape: 4032 x 2268 ~ 3MB
-Samsung Galaxy Portrait: 2268 x 4032 ~3MB
-
-Optimum max width 1200px
-Optimum max height 550px
-
-### Transformations
+## Cloudinary Image Transformations
 Create in advance (during upload?) because a: Its possible and b: a noticeable delay when loading images for the first time.
 This is because by design, the create new album process is followed by upload images and immediately after upload is completed, page is redirected to view the images.
 Named transformations are created by the script /utils/createNamedTransformations.js.
 
-For the album images page, the transformation `{crop: "thumb"}` delivers a lower resolution image, but still too large. Needs to be chained together with optimization.
+### Improvements
+Transformations are not used. All is done via the url in oprtimizations.
+Create 3 named transformations as below and then add optimization using url.
 
-When viewing single large image (e.g. slideshow), a different 
+1. Landing Page
+2. View Album Gallery (Masonry)
+3. Slideshow (Large images)
 
-### Optimization
+## Cloudinary Image Optimization
 Optimizations are quality = auto and delivery format = auto. Can only be done on the fly because are optimized to the user device / browser.
 
-### Cover Image
-- When creating an album no cover image is set
-- When uploading image(s) no cover image is set
-- Cover image is set when loading the landing page
+Optimizations are created when uploading new image.
+During upload, url is generated adding the optimization and transformation parameters.
+The url's are then saved in db along with the image data(masonry_url, landingPage_url, coverImage_url)
+
+### Improvements
+See improvements in Cloudinary Image Transformations.
+
+## Set Album Cover Image Logic
+Cover image is defined in two places:
+1. Initially set when loading the landing page
   - Server side script in landingPageRoute runs:
-    - Per album, checks if images available
-    - if none, set a default coverImage
-    - if images exist, check if a coverImage is set
-TO-DO: define/write coverImage url. How is regular url set? use regular with transforms to get coverImage?
+    - Per album, album has images?
+      - NO; set a default coverImage from /public/assets/no-image-available.jpg
+      - YES; Album has a coverImage defined? 
+        - NO; sets first image in album to be cover image.Save to db.
+        - YES; returns that image object.
+
+2. User select different cover image in view album page
+   - FE script sends data of clicked radion button to BE.
+   - BE saves coverImage to db and returns success to FE.
+   - FE toggles all to false and sets clicked one to true
+
+The scripts used are:
+db-crud.js => defaultSetCoverImage, userSetCoverImage, resetCoverImage

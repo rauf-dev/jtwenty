@@ -45,7 +45,6 @@ router.post('/save-image-data', async (req, res) => {
   const masonryUrl = await createOptimizedImageUrl(req.body.public_id, 'jtwentyMosaic_v2');
   console.log('masonryUrl', masonryUrl);
 
-  //! CONTINUE HERE, check cloudinary thumbnail transformation and text overlay
   const landingPageUrl = await createLandingPageUrl(req.body.public_id, albumName);
 
   const image = {
