@@ -284,7 +284,7 @@ async function defaultSetCoverImage(allAlbums) {
 // 2. BE when user creates a new album and the first image in the album is set as the cover image.
 
 async function userSetCoverImage(albumId, imagePublicId) {
-  console.log('in DB CRUDS setCoverImage');
+  console.log('in DB CRUDS userSetCoverImage');
   try {
     const album = await Album.findById(albumId);
     if (!album) {
@@ -310,6 +310,20 @@ async function userSetCoverImage(albumId, imagePublicId) {
   }
 }
 
+// reset all images in album to isCoverImage: false
+async function resetCoverImage(albumId) {
+  console.log('in DB CRUDS resetCoverImage');
+  try {
+    const resetStatus = await Album.updateMany({ _id: albumId }, { $set: { 'albumImages.$[].isCoverImage': false } });
+    console.log(`resetStatus result is ${resetStatus}`);
+    return resetStatus;
+  } catch (error) {
+    console.log(error);
+    console.log(error.message);
+    return error.message;
+  }
+}
+
 //##############################################################################
 
 module.exports = {
@@ -324,4 +338,5 @@ module.exports = {
   getAlbumName,
   defaultSetCoverImage,
   userSetCoverImage,
+  resetCoverImage
 };

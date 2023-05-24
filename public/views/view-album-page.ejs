@@ -27,8 +27,8 @@
           <div class="delete-icon" role="button" data-image-id="<%= album.albumImages[index]._id %>" data-album-id="<%= album._id%>">
             <i class="fas fa-trash-alt"></i>
           </div>
-          <div class="set-cover-image" data-albumname-coverimage="<%=album.albumName%>" data-albumid-coverimage="<%=album._id%>" data-imageid-coverimage="<%= album.albumImages[index]._id%>">
-              <input class="form-check-input" type="radio" name="album-cover" id="album-cover-<%= album.albumImages[index]._id%>" value="" />
+          <div class="set-cover-image" data-albumname-coverimage="<%=album.albumName%>" data-albumid-coverimage="<%=album._id%>" data-imageid-coverimage="<%= album.albumImages[index]._id%>" data-imagepublicid-coverimage= "<%= album.albumImages[index].public_id%>">
+              <input class="form-check-input" type="radio" name="album-cover" id="album-cover-<%= album.albumImages[index]._id%>" value="<%= album.albumImages[index].isCoverImage%>" />
           </div>
         </div>
         <% } %>
