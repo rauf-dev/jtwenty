@@ -131,4 +131,7 @@ The scripts used are:
 db-crud.js => defaultSetCoverImage, userSetCoverImage, resetCoverImage
 
 
-# Quick notes
+# Quick notes/ future to-do's
+- create named transformations
+- remove console.log's
+- delete unused files

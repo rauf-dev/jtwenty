@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const { getAllDbAlbums, getImagesInAlbum, getAlbumName } = require('../utils/db/db-crud.js');
 
+
+// View Album Page Route
 router.get('/:albumId', async (req, res) => {
   // for the navbar albums list
   const allAlbums = await getAllDbAlbums();
@@ -18,5 +20,6 @@ router.get('/:albumId', async (req, res) => {
   // allAlbums is for navbar, album is for the album images gallery, albumName is for page title
   res.render('view-album-page', { allAlbums, album, albumName });
 });
+
 
 module.exports = router;

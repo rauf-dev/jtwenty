@@ -35,6 +35,7 @@ const createNewAlbumPageRoute = require('./routes/createNewAlbumPageRoute.js');
 const viewAlbumPageRoute = require('./routes/viewAlbumPageRoute.js');
 const uploadWidgetRoute = require('./routes/upload-widget-route.js');
 const userSetCoverImageRoute = require('./routes/userSetCoverImageRoute.js');
+const lightboxPageRoute = require('./routes/lightboxPageRoute.js');
 
 // Import validation middleware
 const validateBody = require('./utils/validation/validation-middleware.js');
@@ -53,5 +54,6 @@ app.use('/deleteimage', deleteImageRoute);
 app.use('/viewalbum', viewAlbumPageRoute);
 app.use('/upload', uploadWidgetRoute); //signed uploads via cld widget
 app.use('/set-cover-image', userSetCoverImageRoute); // set cover image for album
+app.use('/lightbox', lightboxPageRoute); // lightbox image gallery
 
 app.listen(PORT, () => console.log(`JTWENTY SERVER on port :${PORT}, GOO!!!!!`));
