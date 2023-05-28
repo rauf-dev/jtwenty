@@ -8,6 +8,11 @@ const myGallery = cloudinary.galleryWidget({
   cloudName: cloudName,
   carouselStyle: "indicators",
   carouselLocation: "bottom",
+  loaderStyle: "circle",
+  indicatorProps: {
+    // color: "#FFFF00",
+    selectedColor: "#FFFF00",
+  },
   mediaAssets: [{ tag: albumName }],
 });
 
