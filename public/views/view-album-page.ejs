@@ -24,7 +24,7 @@
         <div class="grid-item" id="grid-item-<%= album.albumImages[index]._id%>">
           <a
             class="launch-lightbox"
-            href="/lightbox/<%= album.albumName %> "
+            href="/lightbox/<%= album.albumName %>/<%= album._id %> "
             data-album-id="<%= album._id %>"
             data-image-id="<%= album.albumImages[index]._id%>"
             data-albumname="<%= album.albumName %>"
