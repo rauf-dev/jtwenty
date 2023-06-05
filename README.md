@@ -44,15 +44,53 @@ Create New Album
 
 
 # Documentation
-## General
-Front end is build on vanilla javascript and EJS templating.
-Backend is Node.js / Express.
-Images are saved in Cloudinary library via API's.
-Data is saved in a local MongoDB via mongoose driver/Schema.
+## Why and what is this app about?
+This app was created primariry as a learning project for hands on implementations of a CRUD application using Javascript.
 
-Motto is that the Mongo DB is king. Nothing is saved or deleted from db unless all prior actions are successful. The front end reads only data from db.
+So, the app allows one to create named photo album(s) and upload images to respective album. 
+Each album gets a cover image assigned which the user can change to personal preference.
+Images inside album can be viewed in masonry style layout or in a lightbox gallery.
+Single images can be deleted.
+Album can be deleted (Regardless if empty or not, a warning will appear).
 
-User makes a change -> Change reflected in Cloudinary --> Change reflected to db.
+## Tech Stack
+### Backend
+- Backend runs on [Node.js](https://nodejs.org/en) and [Express](https://expressjs.com/)
+- [Cloudinary](https://cloudinary.com/) used for storage of images.
+- Uploading of images using signed uploads method of [Cloudinary upload widget](https://cloudinary.com/documentation/upload_widget#signed_uploads).
+- Image transformations using Cloudinary SDK for Node.js [direct URL building](https://cloudinary.com/documentation/node_image_manipulation#direct_url_building) helper method.
+- Cloud hosted [MongoDB Atlas](https://www.mongodb.com/atlas) as database for all image and album data. DB is the single point of truth.
+
+### Frontend
+- Frontend uses [vanilla Javascript](https://developer.mozilla.org/en-US/docs/Web/javascript), [EJS Embedded Javascript Templating](https://ejs.co/) and [Bootstrap](https://getbootstrap.com/) 
+- Masonry layout in view album page achieved using [desandro Masonry](https://masonry.desandro.com/) inside bootstrap
+- Live rearranging (in view album page) of images in masonry layout while resizing browser window achieved using [desandro imagesLoaded](https://imagesloaded.desandro.com/)
+- Text animations (annotations) in landing page achieved using [Rough Notation](https://roughnotation.com/). 
+- Fully responsove layout.
+- Images auto-resized and auto-image format delivered based on clients device and screen size.
+
+## What was most challenging?
+### Upload and delivery of images. 
+- Vanilla JS file upload with thumbnail preview had issues on the Safari browser in mobile devices.
+- Typical user uploaded images (from mobile phones) are way too large in capacity and dimensions to display in front-end. Experiamented with image optimization services like [ImageKit](https://imagekit.io/) and [Cloudinary](https://cloudinary.com/). Personally preferred ImageKit for ease of use and simpler pricing model, but went ahead with Cloudinary as it is more suited for business purposes and wouldnt hurt to be familiar with. 
+### Mongoose vs MongoDB driver
+In retrospect could just have used native MongoDB driver but initially over estimated complexity to list count of images per album in the navbar. Thought process was to use Mongoose model virtuals and hence reduce load times as navbar is loaded in each page. Ended up not using the model virtuals as count of images is dynamic and needs to be constantly updated when image(s) deleted or added.
+### Design of Frontend
+What can I say, more fun getting backend and API's to wok than designing the site. Definately needs improvement.
+
+## Lessons Learnt
+To my surprise I found I actually enjoy Javascript, Node.js now. Implementing and solving API issues.
+
+### Planning before coding
+- Initially started coding with a rough design of the app workflow. This was counterproductive as had to greenfield restart several times due to unconsedered aspects.
+- Then took time to thorougly create a detailled workflow documentaion and layout design in Figma. This was good but also counterproductive as so much changed during the implementation that it was near impossible to keep the now existing diagrams and documentation updated with the code implemented.
+
+So my conclusion is: 
+  - If its an app (or tech stack) that you're very familiar with, sure go ahead and create detailled app workflow diagrams. 
+  - Else, create a 'big picture' workflow
+    - Get backend up and running
+    - Use postman etc to create the APIs with response needed
+    - Work on the front end design.
 
 ## Components
 The app has three main components.
@@ -76,10 +114,12 @@ The navbar menu is the heart of this app. Almost all actions can be done here.
 
 ### 2. Landing Page
 - Shows cards of existing albums.
+- If no albums exist, shows text with animation to create album.
 - Each Card is clickable to go to particular view album page.
 - Each card consists of only the album cover image.
   - Name of album is overlayed onto cover image using cloudinary text transformation.
   - Count of images inside album is overlayed using css properties
+ 
 
 ### 3. View Album Page
 - Shows all images inside album in a beuatiful masonry layout (resize window to see the magic).
@@ -88,6 +128,9 @@ The navbar menu is the heart of this app. Almost all actions can be done here.
 - Each image is clickable to open full size image.
 - TO DO -> CREATE TRANSFORMATION FOR LARGE IMAGE <-- TO DO
 - TO DO -> CREATE GALLERY <-- TO DO
+
+
+
 
 ## Cloudinary Image Transformations
 Create in advance (during upload?) because a: Its possible and b: a noticeable delay when loading images for the first time.

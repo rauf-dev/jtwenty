@@ -15,17 +15,48 @@
       <div class="container">
         <!-- if no albums exist, show this block -->
         <% if (coverAlbums.length === 0) { %>
-          <div class="px-4 py-5 my-5 text-center">
-            <img class="d-block mx-auto mb-4" src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
-            <h1 class="display-5 fw-bold text-body-emphasis">Create your first album</h1>
-            <div class="col-lg-6 mx-auto">
-              <p class="lead mb-4">Use the menu in top left to create your first album</p>
+          <div class="container col-xxl-8 px-4 py-5">
+            <div class="row flex-lg-row-reverse align-items-center justify-content-center g-5 py-5">
+              <div class="col-10 col-sm-8 col-lg-6">
+                <img src="../assets/logos/j20_full_v2.svg" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" height="500" loading="lazy">
+              </div>
+              <div class="col-lg-6">
+                <h1 class="display-5 fw-bold lh-1 mb-3">Create your first album</h1>
+                <p class="lead"> <span class="animate-underline-text">Use the menu in top left </span>to create your first album and upload photos. In general all actions will be found in this menu.</p>
+              </div>
             </div>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
-              <path class="squiggle-animated" d="M100,100 C200,200 300,0 400,100" fill="none" stroke="#000" stroke-width="2" />
-            </svg>
-            
           </div>
+
+          <script type="module">
+            import { annotate } from 'https://unpkg.com/rough-notation?module';
+            const hamburgerIcon = document.querySelector('.navbar-toggler-icon');
+            const underlineText = document.querySelector('.animate-underline-text');
+            const annotationHamburgerIcon = annotate(hamburgerIcon, { type: 'circle' });
+            const annotationUnderlineText = annotate(underlineText, { type: 'underline' });
+
+            //Menu props
+            annotationHamburgerIcon.color = 'red';
+            annotationHamburgerIcon.strokeWidth = 6;
+            annotationHamburgerIcon.padding = 15;
+            annotationHamburgerIcon.animationDuration = 2000;
+            annotationHamburgerIcon.iterations = 1;
+
+            //Text props
+            annotationUnderlineText.color = 'red';
+            annotationUnderlineText.strokeWidth = 3;
+            annotationUnderlineText.animationDuration = 1000;
+            
+            //timeout wait before showing the menu annotation
+            setTimeout(() => {
+              annotationUnderlineText.show();
+            }, 1500);
+
+            // timeout wait before showing the menu annotation
+            setTimeout(() => {
+              annotationHamburgerIcon.show();
+            }, 2500);
+            // annotation.show();
+          </script>
         <% } %>
         <!-- else show albums as cards -->
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
@@ -43,27 +74,8 @@
         <!-- ############# -->
       </div>
     </main>
-<script>
-  const path = document.querySelector('.squiggle-animated');
-const length = path.getTotalLength();
 
-// Clear any previous transition
-path.style.transition = path.style.WebkitTransition = 'none';
 
-// Set up the starting positions
-path.style.strokeDasharray = length;
-path.style.strokeDashoffset = length;
-
-// Trigger a layout so styles are calculated and the browser picks up the starting position before animating
-path.getBoundingClientRect();
-
-// Define our transition
-path.style.transition = path.style.WebkitTransition = 'stroke-dashoffset 2s ease-in-out';
-
-// Start the animation
-path.style.strokeDashoffset = '0';
-
-</script>
     <%- include('partials/footer') %> <%- include('partials/body-scripts-bootstrap') %>
     <!-- cloudinary upload widget -->
     <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>

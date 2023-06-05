@@ -1,6 +1,9 @@
 /* @import url(https://fonts.bunny.net/css?family=zen-dots:400); */
 /* @import url(https://fonts.bunny.net/css?family=bangers:400); */
 
+/* css variables for background-color */
+
+
 * {
   box-sizing: border-box;
 }
@@ -10,9 +13,32 @@ html {
   overflow-y: scroll;
 }
 
-/* body {
-  font-family: 'Bangers', display;
-} */
+body {
+  background-color: #fdfdd6
+}
+
+.offcanvas-body{
+  /* background: hsl(211.11deg 20.52% 21.56%); */
+  background-color: rgb(105 210 231);
+}
+
+.offcanvas-header{
+  background: hsl(211.11deg 20.52% 21.56%);
+}
+
+.btn-primary{
+  background-color: rgb(44 55 66) ;
+  border-color: rgb(212 226 229);
+}
+.btn-success{
+  background-color: rgb(44 55 66) !important;
+  border-color: rgb(212 226 229) !important;
+}
+
+.nav-link{
+  color: #1e252c;
+}
+
 main {
   margin-top: 0.2rem;
 }
@@ -20,7 +46,7 @@ main {
 /* ---- grid ---- */
 
 .grid {
-  background: #ddd;
+  background-color: #fdfdd6;
 }
 
 /* clear fix */
@@ -89,7 +115,7 @@ main {
 .delete-icon:hover {
   transform: scale(1.2);
 }
-.set-cover-image:hover{
+.set-cover-image:hover {
   transform: scale(1.2);
 }
 
@@ -132,7 +158,7 @@ main {
   margin-top: 0.2rem;
   margin-bottom: 0.2rem;
 }
-.strong{
+.strong {
   font-weight: 600;
   font-style: italic;
 }
@@ -149,13 +175,13 @@ main {
 }
 
 /* LandingPage Card */
-.landingPageCard{
+.landingPageCard {
   position: relative;
 }
 
 /* Landing page, count of images per album, same color as cloudinary text color */
-.overlayCountTextColor{
-  color: #FFFF00;
+.overlayCountTextColor {
+  color: #ffff00;
   text-shadow: 0 0 3px #000;
   position: absolute;
   top: 5px;
@@ -164,4 +190,22 @@ main {
   padding: 5px;
 }
 
+/* landing page arrow animation */
+.path {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: dash 5s linear alternate infinite;
+}
 
+@keyframes dash {
+  from {
+    stroke-dashoffset: 822;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+#lightbox-widget{
+  margin-top: 80px;
+}
