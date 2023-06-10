@@ -33,7 +33,7 @@ const createLandingPageUrl = async function (imageName, albumName) {
   const url = await cloudinary.url(imageName, {
     transformation: [
       { crop: 'fill', width: 514, height: 514, quality: 'auto', fetch_format: 'auto' },
-      { color: '#FFFF00', overlay: { font_family: 'helvetica', font_size: 60, font_weight: 'bold', text_align: 'center', text: capitalizedAlbumName}, width: 500, height: 500, crop: 'fit'  },
+      { color: '#FB8500', overlay: { font_family: 'helvetica', font_size: 60, font_weight: 'bold', text_align: 'center', text: capitalizedAlbumName}, width: 500, height: 500, crop: 'fit'  },
       { flags: 'layer_apply', gravity: "south", y: 20},
     ],
   });

@@ -3,6 +3,13 @@
 
 /* css variables for background-color */
 
+@font-face {
+  font-family: 'Druk Wide Bold';
+  src: url('../fonts/Druk-Wide-Bold.ttf') format('tiff');
+       /* url('https://fonts.bunny.net/zen-dots/zen-dots.woff') format('woff'); */
+  font-weight: normal;
+  font-style: normal;
+}
 
 * {
   box-sizing: border-box;
@@ -14,22 +21,70 @@ html {
 }
 
 body {
-  background-color: #fdfdd6
+  background-color: #219EBC
+  /* background-color: rgba(255,206,50,.9) */
+}
+
+.navbar-toggler {
+  border-color: #FB8500;
+  border-width: 0.3rem;
+ }
+ .navbar-toggler-icon {
+  background-image: url("../assets/three-dots.svg");
+ color: #FB8500;
+ }
+ 
+
+#langing-header{
+  color: #FFB703;
+}
+
+#landing-lead-text{
+  /* color: whitesmoke; */
+  initial-letter: 2;
 }
 
 .offcanvas-body{
   /* background: hsl(211.11deg 20.52% 21.56%); */
-  background-color: rgb(105 210 231);
+  /* background-color: rgb(105 210 231); */
+  background-color: #219EBC !important;
 }
 
 .offcanvas-header{
-  background: hsl(211.11deg 20.52% 21.56%);
+  background: #219EBC
 }
 
 .btn-primary{
-  background-color: rgb(44 55 66) ;
-  border-color: rgb(212 226 229);
+  background-color: #FB8500!important;
+  border-color: rgb(212 226 229)!important;
 }
+
+.btn-primary:hover,
+.btn-primary:focus{
+  background-color:  hsl(32, 100%, 49%)!important;
+  border-color: rgb(255, 255, 255) !important;
+  border-width: 0.15rem!important;
+}
+
+.btn-check:active + .btn, .btn-check:checked + .btn, .btn.active, .btn.show, .btn:active {
+  /* background-color: var(--bs-btn-active-bg); */
+  /* border-color: var(--bs-btn-active-border-color); */
+  background-color:  hsl(32, 100%, 49%)!important;
+  border-color: rgb(255, 255, 255) !important;
+}
+
+#formAlbumName{
+  /* background-color: #8ECAE6; */
+  background-color: #219EBC;
+  border-width: 0.2rem!important;
+  border-color: rgb(255, 255, 255) !important;
+}
+
+#hint,
+#resultsMessage{
+  color: whitesmoke!important;
+}
+
 .btn-success{
   background-color: rgb(44 55 66) !important;
   border-color: rgb(212 226 229) !important;
@@ -46,7 +101,7 @@ main {
 /* ---- grid ---- */
 
 .grid {
-  background-color: #fdfdd6;
+  background-color: #219EBC;
 }
 
 /* clear fix */
@@ -147,7 +202,7 @@ main {
 }
 
 .spacer {
-  margin-top: 60px;
+  margin-top: 80px;
 }
 
 .separator-navlinks-button {
@@ -162,6 +217,14 @@ main {
   font-weight: 600;
   font-style: italic;
 }
+
+.fa-solid {
+  color: white;
+ }
+ .fa-trash-alt{
+  color: #FB8500FA;
+ }
+ 
 
 @keyframes deleteAlbumAnimation {
   0% {
@@ -190,7 +253,7 @@ main {
   padding: 5px;
 }
 
-/* landing page arrow animation */
+/* start landing page arrow animation */
 .path {
   stroke-dasharray: 1000;
   stroke-dashoffset: 1000;
@@ -205,7 +268,12 @@ main {
     stroke-dashoffset: 0;
   }
 }
+/* end landing page arrow animation */
 
 #lightbox-widget{
   margin-top: 80px;
+}
+
+.form-check-input:checked{
+  background-color: #FB8500
 }
