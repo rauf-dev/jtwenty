@@ -9,17 +9,24 @@
     <h4 id="title" class="text-capitalize text-white pt-2"><%=albumName%></h4>
     <% } %>
 
-    <a class="navbar-brand" href="/"> <img src="../../assets/logos/j20_120x50_v2.svg" alt="" width="120px" height="50px"> </a>
+    <a class="navbar-brand" href="/"> <img src="../../assets/logos/j20_120x50_v2.svg" alt="" width="120px" height="50px" /> </a>
 
     <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
       <div class="offcanvas-header">
-        <a class="navbar-brand" href="/"> <img src="../../assets/logos/j20_120x50_v2.svg" alt="" width="120px" height="50px"> </a>
+        <a class="navbar-brand" href="/"> <img src="../../assets/logos/j20_120x50_v2.svg" alt="" width="120px" height="50px" /> </a>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
 
       <div class="offcanvas-body">
         <div class="dropdown my-3">
-          <button type="button" id="createAlbumBtn" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+          <button
+            type="button"
+            id="createAlbumBtn"
+            class="btn btn-primary dropdown-toggle"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            data-bs-auto-close="outside"
+          >
             Create New Album
           </button>
           <!-- This form is from the partial "form-create-new-album" but cannot insert as partial here! -->
@@ -43,7 +50,9 @@
               <button class="w-100 btn btn-lg btn-primary" id="createNewAlbumButton" type="submit">Create New Album</button>
             </div>
             <div class="form-floating mb-3 hidden" id="viewNewAlbumButtonDIV">
-              <a class="addImagesToAlbum submit w-100 btn btn-lg btn-primary d-block text-capitalize" id="upload_widget_new_album" role="button">Link</a>
+              <a class="addImagesToAlbum submit w-100 btn btn-lg btn-primary d-block text-capitalize" id="upload_widget_new_album" role="button"
+                >Link</a
+              >
             </div>
             <div><img id="uploaded" /></div>
             <div id="dataDiv" data-album-name="" data-album-id=""></div>
@@ -55,33 +64,45 @@
         <div class="navbar-albums-list">
           <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
             <% for( let index = 0; index < allAlbums.length; index++ ) { %>
-            <li class="nav-item d-flex align-items-center border-top border-bottom" id="<%= allAlbums[index]._id %>">
-              <div class="navlist-albumname px-1">
-                <a id="link<%= allAlbums[index]._id %>" class="nav-link text-capitalize px-2" aria-current="" href="/viewalbum/<%= allAlbums[index]._id %> "
-                  ><%= allAlbums[index].albumName %>
-                </a>
+            <li class="nav-item d-flex justify-content-between align-items-center border border-1 rounded-3 my-1" id="<%= allAlbums[index]._id %>">
+              <div class="name-and-count d-flex align-items-center">
+                <div class="navlist-albumname ps-3">
+                  <a
+                    id="link<%= allAlbums[index]._id %>"
+                    class="nav-link text-capitalize"
+                    aria-current=""
+                    href="/viewalbum/<%= allAlbums[index]._id %> "
+                    ><%= allAlbums[index].albumName %>
+                  </a>
+                </div>
+                <div class="navlist-album-count ps-2">
+                  <% if (allAlbums[index].count > 0) { %>
+                  <span class="badge text-bg-light rounded-pill warn-before-delete"><%= allAlbums[index].count %> </span>
+                  <% } %>
+                </div>
               </div>
-              <div class="navlist-album-count px-1">
-                <% if (allAlbums[index].count > 0) { %>
-                <span class="badge text-bg-light rounded-pill warn-before-delete"><%= allAlbums[index].count %> </span>
-                <% } %>
-              </div>
-              <div class="navlist-add-images px-1">
-                <a class="nav-link upload_widget addImagesToAlbum px-3" data-album-name="<%= allAlbums[index].albumName %>" data-album-id="<%= allAlbums[index]._id%>">
-                  <i class="fa-solid fa-cloud-arrow-up"></i>
-                </a>
-              </div>
-              <div class="navlist-delete-album px-1">
-                <a
-                  class="deleteAlbum"
-                  data-bs-toggle="modal"
-                  data-bs-imageCount="<%= allAlbums[index].count %>"
-                  data-bs-albumname="<%= allAlbums[index].albumName %>"
-                  data-bs-albumid="<%= allAlbums[index]._id %>"
-                  data-bs-target="#delete-album-modal"
-                >
-                  <i class="fas fa-trash-alt"></i>
-                </a>
+              <div class="upload-and-delete d-flex align-items-center">
+                <div class="navlist-add-images px-3">
+                  <a
+                    class="nav-link upload_widget addImagesToAlbum"
+                    data-album-name="<%= allAlbums[index].albumName %>"
+                    data-album-id="<%= allAlbums[index]._id%>"
+                  >
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                  </a>
+                </div>
+                <div class="navlist-delete-album px-3">
+                  <a
+                    class="deleteAlbum"
+                    data-bs-toggle="modal"
+                    data-bs-imageCount="<%= allAlbums[index].count %>"
+                    data-bs-albumname="<%= allAlbums[index].albumName %>"
+                    data-bs-albumid="<%= allAlbums[index]._id %>"
+                    data-bs-target="#delete-album-modal"
+                  >
+                    <i class="fas fa-trash-alt"></i>
+                  </a>
+                </div>
               </div>
             </li>
             <% } %>
