@@ -312,27 +312,12 @@ main {
   color: #fff;
 }
 
-.each-feature-card{
-  box-shadow: 0 1rem 3rem rgba(208, 8, 8, 0.51) !important;
-  border: 0.2rem solid #FB8500;
-  background-size: cover;
-  background-repeat: no-repeat;
+.text-body-secondary{
+  color: #FFB703;
 }
-.each-feature-card-text {
-  /* color: #fff; */
-  /* color: #219EBC; */
-  /* color: #023047; */
-  /* color: #FFB703; */
-  /* color: #FB8500; */
-  padding-top: 0!important;
-  background-color: #02304782;
-}
-.feature-card-1{
-background-image: url(../assets/card-create-album.svg);
-}
-.feature-card-2{
-  background-image: url(../assets/create-album-2.svg);
-}
-.feature-card-3{
-  background-image: url(../assets/create-album-2.png);
+
+.balance-text{
+  text-align: center!important;
+  text-wrap: balance!important;
+  line-height: 1.5!important;
 }

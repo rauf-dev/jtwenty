@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+  <head>
+    <%- include('partials/head-meta-defaults') %> <%- include('partials/head-links-defaults') %>
+    <title>2022</title>
+    <%- include('partials/head-scripts-defaults') %> <%- include('partials/head-scripts-bootstrap-icons') %>
+    <script defer src="./js/confirmDeleteAlbumModal.js"></script>
+  </head>
+
+  <body>
+    <%- include('partials/navbar') %>
+    <main>
+      <div class="spacer"></div>
+      <%- include ('partials/modal-confirm-delete-album') %>
+      <div class="container">
+          <%- include ('partials/welcome-section') %>
+      </div>
+    </main>
+
+
+    <%- include('partials/footer') %> <%- include('partials/body-scripts-bootstrap') %>
+    <!-- cloudinary upload widget -->
+    <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
+    <script src="/js/uploadWidget_newAlbum.js" type="text/javascript"></script>
+    <script src="/js/createNewAlbum.js"></script>
+    <script src="/js/redirectToViewNewAlbum.js"></script>
+    <script src="/js/open-navbar-toggler.js"></script>
+  </body>
+</html>
