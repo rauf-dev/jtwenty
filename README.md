@@ -68,6 +68,7 @@ Album can be deleted (Regardless if empty or not, a warning will appear).
 - Text animations (annotations) in landing page achieved using [Rough Notation](https://roughnotation.com/). 
 - Fully responsove layout.
 - Images auto-resized and auto-image format delivered based on clients device and screen size.
+- Carousel uses [Cloudinary Product Gallery widget](https://cloudinary.com/documentation/product_gallery_reference)
 
 ## What was most challenging?
 ### Upload and delivery of images. 
@@ -129,7 +130,9 @@ The navbar menu is the heart of this app. Almost all actions can be done here.
 - TO DO -> CREATE TRANSFORMATION FOR LARGE IMAGE <-- TO DO
 - TO DO -> CREATE GALLERY <-- TO DO
 
-
+### 4. Lightbox Page
+- Shows a carousel of the images inside the album
+- 
 
 
 ## Cloudinary Image Transformations

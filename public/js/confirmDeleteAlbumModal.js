@@ -11,21 +11,24 @@ deleteAlbumModal.addEventListener('show.bs.modal', async (event) => {
   const imageCount = button.getAttribute('data-bs-imagecount');
   const albumId = button.getAttribute('data-bs-albumid');
 
+  //Capitalize the first letter of the album name
+  function capitalizeWords(sentence) {
+    return sentence.replace(/\b\w/g, (match) => match.toUpperCase());
+  }
+  const capitalizedAlbumName = capitalizeWords(albumName);
+
   // Update the modal's content.
   const modalTitle = deleteAlbumModal.querySelector('#insert-modal-album-name');
   const modalBodyInput = deleteAlbumModal.querySelector('#insert-modal-body-text');
 
-  modalTitle.textContent = `Confirm Delete ${albumName}`;
+  modalTitle.textContent = `Confirm Delete Album "${capitalizedAlbumName}"`;
   if (imageCount === '0') {
-    modalBodyInput.innerHTML = `Delete empty album "${albumName}"? This action cannot be undone.`;
+    modalBodyInput.innerHTML = `Delete empty album "${capitalizedAlbumName}"? This action cannot be undone.`;
   } else if (imageCount === '1') {
-    modalBodyInput.innerHTML = `Delete album "${albumName}" with ${imageCount} image inside it? This action cannot be undone.`;
+    modalBodyInput.innerHTML = `Delete album "${capitalizedAlbumName}" with ${imageCount} image inside it? This action cannot be undone.`;
   } else  {
-    modalBodyInput.innerHTML = `Delete album "${albumName}" with ${imageCount} images inside it? This action cannot be undone.`;
+    modalBodyInput.innerHTML = `Delete album "${capitalizedAlbumName}" with ${imageCount} images inside it? This action cannot be undone.`;
   }
-// 64245367728db1002b94a54f
-// albumName
-// "gaslighter number one"
 
   // Build the url for deleting via fetch api
   const url = new URL(`deletealbum/${albumId}`, window.location.origin);

@@ -6,7 +6,7 @@ const cloudName = 'dzcyxehoa';
 const myGallery = cloudinary.galleryWidget({
   container: '#lightbox-widget',
   cloudName: cloudName,
-  carouselStyle: "indicators",
+  carouselStyle: "thumbnails",
   carouselLocation: "bottom",
   loaderStyle: "circle",
   indicatorProps: {

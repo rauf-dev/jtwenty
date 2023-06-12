@@ -280,9 +280,7 @@ main {
 }
 /* end landing page arrow animation */
 
-#lightbox-widget{
-  margin-top: 80px;
-}
+ 
 
 .form-check-input:checked{
   background-color: #FB8500
@@ -307,3 +305,14 @@ main {
 .rounded-pill{
   color: #023047;
 }
+
+.modal-content{
+  background-color: #219EBC;
+  border-color: #fff;
+  color: #fff;
+}
+
+.shadow-lg{
+  box-shadow: 0 1rem 3rem rgba(208, 8, 8, 0.51) !important;
+}
+
