@@ -13,4 +13,8 @@ window.addEventListener('DOMContentLoaded', async (event) => {
 
   // add the active class to the current album link
   currentAlbumLink.classList.add('active');
+
+  // add the active-list-item class to list item for css styling
+  currentAlbumLink.parentNode.parentNode.classList.add('active-listitem-albumName');
+  currentAlbumLink.parentNode.parentNode.parentNode.classList.add('active-listitem');
 });

@@ -6,7 +6,7 @@
 
     <!-- EJS if statement to show album name if on view-album-page.ejs -->
     <% if (albumName !== "home") { %>
-    <h4 id="title" class="text-capitalize fw-bold text-white pt-2"><%=albumName%></h4>
+    <h4 id="title" class="text-capitalize text-white pt-2"><%=albumName%></h4>
     <% } %>
 
     <a class="navbar-brand" href="/"> <img src="../../assets/logos/j20_120x50_v2.svg" alt="" width="120px" height="50px" /> </a>
@@ -18,7 +18,7 @@
       </div>
 
       <div class="offcanvas-body">
-        <div class="dropdown my-3 ps-1">
+        <div class="dropdown my-3">
           <button
             type="button"
             id="createAlbumBtn"
@@ -62,11 +62,11 @@
           </form>
         </div>
         <div class="navbar-albums-list">
-          <ul class="navbar-nav px-3">
+          <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
             <% for( let index = 0; index < allAlbums.length; index++ ) { %>
-            <li class="nav-item row border border-1 rounded-3 px-2 my-1" id="<%= allAlbums[index]._id %>">
-              <div onclick="location.href='/viewalbum/<%= allAlbums[index]._id %> ';"  style="cursor: pointer;" class="name-and-count col-9 d-flex align-items-center justify-content-start">
-                <div class="navlist-albumname pe-2">
+            <li class="nav-item d-flex justify-content-between align-items-center border border-1 rounded-3 my-1" id="<%= allAlbums[index]._id %>">
+              <div class="name-and-count d-flex align-items-center">
+                <div class="navlist-albumname ps-3">
                   <a
                     id="link<%= allAlbums[index]._id %>"
                     class="nav-link text-capitalize"
@@ -75,14 +75,14 @@
                     ><%= allAlbums[index].albumName %>
                   </a>
                 </div>
-                <div class="navlist-album-count">
+                <div class="navlist-album-count ps-2">
                   <% if (allAlbums[index].count > 0) { %>
                   <span class="badge text-bg-light rounded-pill warn-before-delete"><%= allAlbums[index].count %> </span>
                   <% } %>
                 </div>
               </div>
-              <div class="upload-and-delete col-3 d-flex align-items-center justify-content-end">
-                <div class="navlist-add-images pe-4">
+              <div class="upload-and-delete d-flex align-items-center">
+                <div class="navlist-add-images px-3">
                   <a
                     class="nav-link upload_widget addImagesToAlbum"
                     data-album-name="<%= allAlbums[index].albumName %>"
@@ -91,7 +91,7 @@
                     <i class="fa-solid fa-cloud-arrow-up"></i>
                   </a>
                 </div>
-                <div class="navlist-delete-album">
+                <div class="navlist-delete-album px-3">
                   <a
                     class="deleteAlbum"
                     data-bs-toggle="modal"

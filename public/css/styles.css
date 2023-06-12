@@ -63,7 +63,8 @@ body {
 .btn-primary:focus{
   background-color:  hsl(32, 100%, 49%)!important;
   border-color: rgb(255, 255, 255) !important;
-  border-width: 0.15rem!important;
+  /* border-width: 0.15rem!important; */
+  box-shadow: 0 0 0 0.1rem rgb(255, 255, 255);
 }
 
 .btn-check:active + .btn, .btn-check:checked + .btn, .btn.active, .btn.show, .btn:active {
@@ -91,8 +92,17 @@ body {
 }
 
 .nav-link{
-  color: #1e252c;
+  color: #fff!important;
+  cursor: pointer;
 }
+.deleteAlbum{
+  cursor: pointer;
+}
+.nav-link:hover i, .deleteAlbum:hover i {
+  transform: scale(1.5);
+  transition: transform 0.3s ease;
+}
+
 
 main {
   margin-top: 0.2rem;
@@ -141,7 +151,7 @@ main {
   max-width: 100%;
 
   /* the frame around each image */
-  border: 2px solid #fff;
+  border: 0.2rem solid #fff;
 }
 
 .grid-item a {
@@ -244,7 +254,7 @@ main {
 
 /* Landing page, count of images per album, same color as cloudinary text color */
 .overlayCountTextColor {
-  color: #ffff00;
+  color: #FFB703;
   text-shadow: 0 0 3px #000;
   position: absolute;
   top: 5px;
@@ -282,4 +292,18 @@ main {
   /* border-width: 0.15rem !important; */
   box-shadow: 0 0 0 0.1rem rgb(255, 255, 255);
 }
- 
+
+.active-listitem{
+  /* background-color: #FB8500 !important; */
+  /* border-color: #FB8500 !important; */
+  /* box-shadow: 0 0 0 0.1rem rgba(251, 134, 0, 0.836); */
+  box-shadow: 0 0 0 0.1rem rgb(255, 255, 255);
+}
+
+.active-listitem-albumName{
+  font-weight: bold;
+}
+
+.rounded-pill{
+  color: #023047;
+}
