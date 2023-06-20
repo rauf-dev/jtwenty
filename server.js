@@ -7,7 +7,7 @@ const connectDb = require('./utils/db/db-connection.js');
 
 // init app & middleware
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 
 connectDb();
 

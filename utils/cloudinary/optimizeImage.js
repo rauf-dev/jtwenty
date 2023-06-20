@@ -15,11 +15,13 @@ const createOptimizedImageUrl = async function (imageName, transformationName) {
     if: 'w_gt_1200',
     width: 1200,
     // quality: 'auto',
+    // fetch_format: 'auto',
 
     chain: {
       if: 'h_gt_550',
       height: 550,
       // quality: 'auto',
+      // fetch_format: 'auto',
     },
   });
   return url;

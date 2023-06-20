@@ -81,9 +81,11 @@ body {
   border-color: rgb(255, 255, 255) !important;
 }
 
-#hint,
+
+
 #resultsMessage{
-  color: whitesmoke!important;
+  color: hsl(32, 100%, 49%);
+  /* color: #FFB703!important; */
 }
 
 .btn-success{
@@ -318,6 +320,6 @@ main {
 
 .balance-text{
   text-align: center!important;
-  text-wrap: balance!important;
+  /* text-wrap: balance!important; */
   line-height: 1.5!important;
 }
