@@ -25,6 +25,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public/'));
 
 // Import routes
+const welcomePageRoute = require('./routes/welcomePageRoute.js');
+
+// login is required for all routes below
+// add login middleware from passportjs.org here
+
+
 const landingPageRoute = require('./routes/landingPageRoute.js');
 const createNewAlbumRoute = require('./routes/createNewAlbumRoute.js');
 const deleteAlbumRoute = require('./routes/deleteAlbumRoute.js');
@@ -36,7 +42,6 @@ const viewAlbumPageRoute = require('./routes/viewAlbumPageRoute.js');
 const uploadWidgetRoute = require('./routes/upload-widget-route.js');
 const userSetCoverImageRoute = require('./routes/userSetCoverImageRoute.js');
 const lightboxPageRoute = require('./routes/lightboxPageRoute.js');
-const welcomePageRoute = require('./routes/welcomePageRoute.js');
 
 
 // Import validation middleware
